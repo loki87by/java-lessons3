@@ -10,14 +10,16 @@ public class Utils {
     Long max = Long.MAX_VALUE;
 
     public <T> Long getUniqueId(HashMap<Long, T> list, Long hash) {
+        long finalHash;
 
         if (hash == 0) {
             Random random = new Random();
             int randomNumber = random.nextInt(11);
             int moreRandomNumber = random.nextInt(11);
-            hash = (long) Math.pow(randomNumber, moreRandomNumber);
+            finalHash = (long) Math.pow(randomNumber, moreRandomNumber);
+        } else {
+            finalHash = hash;
         }
-        Long finalHash = hash;
         List<Long> isRepeat = list.keySet().stream().filter(i -> Objects.equals(i, finalHash)).toList();
 
         if (isRepeat.isEmpty()) {

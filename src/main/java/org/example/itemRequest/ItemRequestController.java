@@ -27,24 +27,29 @@ public class ItemRequestController {
     }
 
     @PostMapping("")
-    public ItemRequestDTO save(@RequestHeader("X-Later-User-Id") Long userId, @RequestParam String reqItem) {
+    public ItemRequestDTO save(@RequestHeader("X-Later-User-Id") Long userId, @RequestParam("reqItem") String reqItem) {
         return itemRequestService.save(userId, reqItem);
     }
 
     @PostMapping("/{id}")
-    public String setItem(@RequestHeader("X-Later-User-Id") Long userId, @PathVariable Long id, @RequestBody ItemDTO dto) {
+    public String setItem(@RequestHeader("X-Later-User-Id") Long userId,
+                          @PathVariable Long id,
+                          @RequestBody ItemDTO dto) {
+        //need add check user in users
         return itemRequestService.addItem(id, dto, userId);
     }
 
     @PatchMapping("/{id}")
     public ItemRequestDTO update(@RequestHeader("X-Later-User-Id") Long userId,
                                  @PathVariable Long id,
-                                 @RequestParam String reqItem) {
+                                 @RequestParam(value = "reqItem") String reqItem) {
+        //need fix - method not working
         return itemRequestService.update(userId, id, reqItem);
     }
 
     @DeleteMapping("/{id}")
     public String delete(@RequestHeader("X-Later-User-Id") Long userId, @PathVariable Long id) {
+        //need fix - method not working
         return itemRequestService.delete(userId, id);
     }
 }

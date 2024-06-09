@@ -60,7 +60,7 @@ public class ItemServiceImpl implements ItemService {
         Long id = utils.getUniqueId(items, hash);
         Item item = itemMapper.toModel(dto, userId, id);
         itemRepository.save(item);
-        return dto;
+        return itemMapper.toDTO(item);
     }
 
     private boolean isOwner(Long userId, Long itemId) {

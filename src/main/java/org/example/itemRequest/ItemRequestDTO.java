@@ -6,5 +6,5 @@ import lombok.Data;
 public class ItemRequestDTO {
     private Long id;
     private String reqItem;
-    private Long respItem= null;
+    private Long respItem = null;
 }
