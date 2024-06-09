@@ -5,9 +5,8 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class Item {
-    private Long id;
-    private Long owner;
+public class ItemDTO {
+    private Long id = null;
     private String name;
     private String description;
     private boolean isBooked;

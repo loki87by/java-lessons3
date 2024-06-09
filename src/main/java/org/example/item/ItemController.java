@@ -4,31 +4,54 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/items")
 public class ItemController {
 
-    private final ItemServiceImpl  itemRepository;
+    ItemService itemService;
+
     @Autowired
-    public ItemController(ItemServiceImpl  itemRepository) {
-        this.itemRepository = itemRepository;
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
+
+    @GetMapping("/all")
+    public List<ItemDTO> getAllItems() {
+        return itemService.findAll();
     }
 
     @GetMapping("")
-    public List<Item> getItems (@RequestHeader("X-Later-User-Id") Long userId) {
-        return itemRepository.findByUserId(userId);
+    public List<ItemDTO> getMyItems(@RequestHeader("X-Later-User-Id") Long userId) {
+        return itemService.findByUserId(userId);
+    }
+
+    @GetMapping("/{itemId}")
+    public ItemDTO getItem(@RequestHeader("X-Later-User-Id") Long userId,
+                           @PathVariable(name = "itemId") Long itemId) {
+        return itemService.getItem(userId, itemId);
+    }
+
+    @GetMapping("/search")
+    public List<ItemDTO> searchItem(@RequestHeader("X-Later-User-Id") Long userId,
+                                    @RequestParam String text) {
+        return itemService.search(userId, text);
     }
 
     @PostMapping("")
-    public Item setItem (@RequestHeader("X-Later-User-Id") Long userId, @RequestParam(name = "url") String url) {
-        Item item = new Item();
-        item.setUserId(userId);
-        item.setUrl(url);
-        return itemRepository.save(item);
+    public ItemDTO setItem(@RequestHeader("X-Later-User-Id") Long userId, @RequestBody ItemDTO dto) {
+        return itemService.save(dto, userId);
+    }
+
+    @PatchMapping("/{itemId}")
+    public String updItem(@RequestHeader("X-Later-User-Id") Long userId,
+                          @RequestBody ItemDTO dto,
+                          @PathVariable(name = "itemId") Long itemId) {
+        return itemService.update(dto, userId, itemId);
     }
 
     @DeleteMapping("/{itemId}")
-    public void deleteItem (@RequestHeader("X-Later-User-Id") Long userId, @PathVariable(name = "itemId") Long itemId) {
-        itemRepository.deleteByUserIdAndItemId(userId, itemId);
+    public String deleteItem(@RequestHeader("X-Later-User-Id") Long userId, @PathVariable(name = "itemId") Long itemId) {
+        return itemService.deleteByUserIdAndItemId(userId, itemId);
     }
 }

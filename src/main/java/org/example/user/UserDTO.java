@@ -3,8 +3,7 @@ package org.example.user;
 import lombok.Data;
 
 @Data
-public class User {
-    private Long id;
-    private String email;
+public class UserDTO {
     private String name;
+    private String email;
 }
