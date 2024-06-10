@@ -1,0 +1,919 @@
+{
+	"info": {
+		"_postman_id": "65accfa6-46e0-4f24-a48c-c58a611c2011",
+		"name": "jl3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "12336587"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "get users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "1",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "1",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"testUser\",\r\n\"email\": \"testUser@test.ru\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upd user",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"testUser2\",\r\n\"email\": \"testUser@test2.ru\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"testUser2\",\r\n\"email\": \"testUser@test2.ru\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "items",
+			"item": [
+				{
+					"name": "get all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"testUser2\",\r\n\"email\": \"testUser@test2.ru\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/items/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items",
+								"all"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get my",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"testUser2\",\r\n\"email\": \"testUser@test2.ru\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\": \"2\",\r\n\"description\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upd item",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\": \"hammer\",\r\n\"description\": \"100Wt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/items/{{id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items",
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del item",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\": \"hammer\",\r\n\"description\": \"100Wt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/items/{{id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items",
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get item",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"testUser2\",\r\n\"email\": \"testUser@test2.ru\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/items/{{id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items",
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"testUser2\",\r\n\"email\": \"testUser@test2.ru\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/items/search?text=Wt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items",
+								"search"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								},
+								{
+									"key": "text",
+									"value": "Wt"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "itemRequests",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "1",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/itemRequests/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"itemRequests",
+								"all"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get my",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/itemRequests",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"itemRequests"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set itemRequest",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/itemRequests?reqItem=шуруповерт",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"itemRequests"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								},
+								{
+									"key": "reqItem",
+									"value": "шуруповерт"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set item to itemRequest",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\": \"2\",\r\n\"description\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/itemRequests/{{itemRequests}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"itemRequests",
+								"{{itemRequests}}"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upd itemRequest",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/itemRequests/{{itemRequests}}?reqItem=гайковерт",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"itemRequests",
+								"{{itemRequests}}"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								},
+								{
+									"key": "reqItem",
+									"value": "гайковерт"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del itemRequest",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/itemRequests/{{itemRequests}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"itemRequests",
+								"{{itemRequests}}"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								},
+								{
+									"key": "reqItem",
+									"value": "гайковерт",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "booking",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/booking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get current",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/booking/{{bookingId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"booking",
+								"{{bookingId}}"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://example.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/booking?itemId={{id}}&startDate=12-11-2024&endDate=2024-12-12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "itemId",
+									"value": "{{id}}"
+								},
+								{
+									"key": "startDate",
+									"value": "12-11-2024"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-12-12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upd book",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/booking/{{bookingId}}?startDate=12-11-2024&endDate=2024-12-12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"booking",
+								"{{bookingId}}"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "12-11-2024"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-12-12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirm",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/booking/{{bookingId}}?confirm=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"booking",
+								"{{bookingId}}"
+							],
+							"query": [
+								{
+									"key": "confirm",
+									"value": "true"
+								},
+								{
+									"key": "startDate",
+									"value": "12-11-2023",
+									"disabled": true
+								},
+								{
+									"key": "endDate",
+									"value": "2024-09-12",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Later-User-Id",
+								"value": "{{X-Later-User-Id}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/booking?bookingId={{bookingId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "12-11-2023",
+									"disabled": true
+								},
+								{
+									"key": "endDate",
+									"value": "2024-09-12",
+									"disabled": true
+								},
+								{
+									"key": "bookingId",
+									"value": "{{bookingId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
