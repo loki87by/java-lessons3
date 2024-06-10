@@ -12,6 +12,11 @@ public class UserRepository {
         return users;
     }
 
+    public boolean checkUser(Long userId) {
+        User user = users.get(userId);
+        return user != null;
+    }
+
     public void save(User user) {
         users.put(user.getId(), user);
     }

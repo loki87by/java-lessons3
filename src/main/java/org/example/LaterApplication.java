@@ -26,10 +26,6 @@ public class LaterApplication {
         dispatcherWrapper.addMapping("/");
         dispatcherWrapper.setLoadOnStartup(1);
 
-        /*Wrapper testServletMapper = Tomcat.addServlet(tomcatContext, "testServlet", new TestServlet());
-        testServletMapper.addMapping("/test");*/
         tomcat.start();
-
-        //need return current info if error
     }
 }

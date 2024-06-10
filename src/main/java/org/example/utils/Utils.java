@@ -14,8 +14,8 @@ public class Utils {
 
         if (hash == 0) {
             Random random = new Random();
-            int randomNumber = random.nextInt(11);
-            int moreRandomNumber = random.nextInt(11);
+            int randomNumber = random.nextInt(10) + 1;
+            int moreRandomNumber = random.nextInt(10) + 1;
             finalHash = (long) Math.pow(randomNumber, moreRandomNumber);
         } else {
             finalHash = hash;

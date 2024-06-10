@@ -55,18 +55,11 @@ public class ItemRequestRepository {
         return itemRequestMapper.toDTO(itemRequest);
     }
 
-/*    private boolean isOwner(Long id, Long userId) {
-        ItemRequest itemRequest = itemRequests.get(id);
-        Long author = itemRequest.getAuthor();
-
-        return Objects.equals(author, userId);
-    }*/
-
     public ItemRequestDTO update(Long userId, Long id, String reqItem) {
         ItemRequest itemRequest = itemRequests.get(id);
         boolean isOwner = Objects.equals(itemRequest.getAuthor(), userId);
 
-        if (isOwner) {
+        if (!isOwner) {
             return new ItemRequestDTO();
         } else {
             itemRequest.setReqItem(reqItem);

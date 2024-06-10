@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Repository
 public class BookingRepository {
@@ -43,21 +40,29 @@ public class BookingRepository {
         return dtos;
     }
 
-    public String getStatus(Long userId, Long bookingId) {
+    public void checkPrivate(Long userId, Long bookingId, String errorText) {
         Booking booking = bookings.get(bookingId);
 
-        if (!Objects.equals(booking.getUser(), userId)) {
-            return "Нельзя посмотреть статус чужой заявки.";
-        } else {
-            int confirmState = booking.getBookingConfirm();
+        if (booking == null) {
+            throw new NoSuchElementException("Не найдено записей о бронировании с таким id.");
+        }
 
-            if (confirmState == 1) {
-                return "Ваша заявка одобрена.";
-            } else if (confirmState == -1) {
-                return "Ваша заявка отклонена.";
-            } else {
-                return "Ваша заявка на рассмотрении.";
-            }
+        if (!Objects.equals(booking.getUser(), userId)) {
+            throw new SecurityException(errorText);
+        }
+    }
+
+    public String getStatus(Long userId, Long bookingId) {
+        checkPrivate(userId, bookingId, "Нельзя посмотреть статус чужой заявки.");
+        Booking booking = bookings.get(bookingId);
+        int confirmState = booking.getBookingConfirm();
+
+        if (confirmState == 1) {
+            return "Ваша заявка одобрена.";
+        } else if (confirmState == -1) {
+            return "Ваша заявка отклонена.";
+        } else {
+            return "Ваша заявка на рассмотрении.";
         }
     }
 
@@ -73,7 +78,7 @@ public class BookingRepository {
             booking.setBookingConfirm(confirm ? 1 : -1);
             return confirm ? "Заявка одобрена" : "Заявка отклонена";
         }
-        return "У вас нет прав для данной операции.";
+        throw new SecurityException("У вас нет прав для данной операции.");
     }
 
     public Long book(Long userId,
@@ -81,7 +86,7 @@ public class BookingRepository {
                      Instant startDate,
                      Instant endDate) {
         Item item = itemRepository.findAll().get(itemId);
-        int size = itemRepository.findAll().size();
+        int size = bookings.size();
         Long hash = Math.abs(Long.parseLong(String.valueOf(bookings.hashCode())));
         Long id = utils.getUniqueId(bookings, hash);
         Booking booking = new Booking();
@@ -92,7 +97,7 @@ public class BookingRepository {
         booking.setItemId(item.getId());
         booking.setBooked(true);
         bookings.put(id, booking);
-        int length = itemRepository.findAll().size();
+        int length = bookings.size();
 
         if (size < length) {
             return id;
@@ -100,14 +105,28 @@ public class BookingRepository {
         return null;
     }
 
-    public String remove(Long userId, Long bookingId) {
-        Booking booking = bookings.get(bookingId);
-        Item item = checkOwnersItem(userId, booking);
+    public Instant getTime(Long id, boolean isStartDate) {
+        Booking booking = bookings.get(id);
 
-        if (item != null) {
+        return isStartDate ? booking.getStartDate() : booking.getEndDate();
+    }
+
+    public String update(Long bookingId,
+                         Instant startDate,
+                         Instant endDate) {
+        Booking booking = bookings.get(bookingId);
+        booking.setStartDate(startDate);
+        booking.setEndDate(endDate);
+        return "Данные обновлены.";
+    }
+
+    public String remove(Long bookingId) {
+        Booking booking = bookings.get(bookingId);
+
+        if (booking != null) {
             bookings.remove(bookingId);
             return "Заявка отменена.";
         }
-        return "У вас нет прав для данной операции.";
+        throw new NoSuchElementException("Запрашиваемый ресурс не найден.");
     }
 }

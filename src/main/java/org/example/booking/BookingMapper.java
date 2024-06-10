@@ -1,5 +1,6 @@
 package org.example.booking;
 
+//import org.example.utils.DateConverter;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -9,21 +10,21 @@ public class BookingMapper {
         BookingDTO dto = new BookingDTO();
         dto.setBooked(booking.isBooked());
         dto.setBookingConfirm(booking.getBookingConfirm());
-        dto.setStartDate(booking.getStartDate());
-        dto.setEndDate(booking.getEndDate());
+        dto.setStartDate(booking.getStartDate().toString());
+        dto.setEndDate(booking.getEndDate().toString());
         dto.setId(booking.getId());
         return dto;
     }
 
-    public Booking toModel (BookingDTO dto, Long user, Long itemId) {
+/*    public Booking toModel (BookingDTO dto, Long user, Long itemId) {
         Booking booking = new Booking();
         booking.setItemId(itemId);
         booking.setUser(user);
         booking.setId(dto.getId());
-        booking.setStartDate(dto.getStartDate());
-        booking.setEndDate(dto.getEndDate());
+        booking.setStartDate(DateConverter.convertToInstant(dto.getStartDate()));
+        booking.setEndDate(DateConverter.convertToInstant(dto.getEndDate()));
         booking.setBooked(dto.isBooked());
         booking.setBookingConfirm(dto.getBookingConfirm());
         return booking;
-    }
+    }*/
 }
