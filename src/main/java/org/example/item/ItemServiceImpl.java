@@ -98,7 +98,7 @@ public class ItemServiceImpl implements ItemService {
             if (length > newLength) {
                 return "success";
             }
-            throw new NoSuchElementException("С таким id("+itemId+") ничего не найдено.");
+            throw new NoSuchElementException("С таким id(" + itemId + ") ничего не найдено.");
         }
         throw new SecurityException("У вас нет прав для удаления данного материала.");
     }

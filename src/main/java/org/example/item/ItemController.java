@@ -51,7 +51,8 @@ public class ItemController {
     }
 
     @DeleteMapping("/{itemId}")
-    public String deleteItem(@RequestHeader("X-Later-User-Id") Long userId, @PathVariable(name = "itemId") Long itemId) {
+    public String deleteItem(@RequestHeader("X-Later-User-Id") Long userId,
+                             @PathVariable(name = "itemId") Long itemId) {
         return itemService.deleteByUserIdAndItemId(userId, itemId);
     }
 }

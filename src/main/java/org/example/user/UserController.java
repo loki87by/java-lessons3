@@ -34,8 +34,7 @@ public class UserController {
         if (!Objects.equals(userId, max)) {
             return userService.update(dto, userId);
         }
-        // need add error
-        return new UserDTO();
+        throw new SecurityException("недостаточно прав для операции.");
     }
 
     @DeleteMapping("")
@@ -44,7 +43,6 @@ public class UserController {
         if (!Objects.equals(userId, max)) {
             return userService.delete(userId);
         }
-        // need add error
-        return "недостаточно прав для операции.";
+        throw new SecurityException("недостаточно прав для операции.");
     }
 }

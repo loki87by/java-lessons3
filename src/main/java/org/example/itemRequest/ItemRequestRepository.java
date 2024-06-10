@@ -5,6 +5,7 @@ import org.example.item.ItemDTO;
 import org.example.item.ItemMapper;
 import org.example.item.ItemRepository;
 import org.example.utils.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -76,6 +77,6 @@ public class ItemRequestRepository {
             itemRequests.remove(itemRequestId);
             return "Запись удалена.";
         }
-        return "Error: нет прав для операции.";
+        throw new SecurityException("Error: нет прав для операции.");
     }
 }

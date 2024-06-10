@@ -28,6 +28,7 @@ public class BookingController {
         return bookingService.getStatus(bookingId, userId);
     }
 
+    //бронирование
     @PostMapping("")
     public String book(@RequestHeader("X-Later-User-Id") Long userId,
                        @RequestParam("itemId") Long itemId,
@@ -36,6 +37,7 @@ public class BookingController {
         return bookingService.book(userId, itemId, startDate, endDate);
     }
 
+    //подтверждение брони владельцем
     @PostMapping("/{bookingId}")
     public String confirm(@RequestHeader("X-Later-User-Id") Long ownerId,
                           @PathVariable(name = "bookingId") Long bookingId,
@@ -43,6 +45,7 @@ public class BookingController {
         return bookingService.confirm(ownerId, bookingId, confirm);
     }
 
+    //изменение дат бронирования заказчиком
     @PatchMapping("/{bookingId}")
     public String update(@RequestHeader("X-Later-User-Id") Long userId,
                          @PathVariable(name = "bookingId") Long bookingId,
@@ -51,6 +54,7 @@ public class BookingController {
         return bookingService.update(userId, bookingId, startDate, endDate);
     }
 
+    //отмена брони
     @DeleteMapping("")
     public String delete(@RequestHeader("X-Later-User-Id") Long userId,
                          @RequestParam("bookingId") Long bookingId) {

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ItemMapper {
 
-    public ItemDTO toDTO (Item item) {
+    public ItemDTO toDTO(Item item) {
         ItemDTO dto = new ItemDTO();
         dto.setDescription(item.getDescription());
         dto.setFeedbacks(item.getFeedbacks());
@@ -15,7 +15,7 @@ public class ItemMapper {
         return dto;
     }
 
-    public Item toModel (ItemDTO dto, Long owner, Long id) {
+    public Item toModel(ItemDTO dto, Long owner, Long id) {
         Item item = new Item();
         item.setBooked(dto.isBooked());
         item.setName(dto.getName());

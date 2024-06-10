@@ -1,6 +1,7 @@
 package org.example.itemRequest;
 
 import org.example.item.ItemDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,21 +35,21 @@ public class ItemRequestController {
 
     @PostMapping("/{id}")
     public String setItem(@RequestHeader("X-Later-User-Id") Long userId,
-                          @PathVariable (name = "id") Long id,
+                          @PathVariable(name = "id") Long id,
                           @RequestBody ItemDTO dto) {
         return itemRequestService.addItem(id, dto, userId);
     }
 
     @PatchMapping("/{id}")
     public ItemRequestDTO update(@RequestHeader("X-Later-User-Id") Long userId,
-                                 @PathVariable (name = "id") Long id,
+                                 @PathVariable(name = "id") Long id,
                                  @RequestParam(value = "reqItem") String reqItem) {
         return itemRequestService.update(userId, id, reqItem);
     }
 
     @DeleteMapping("/{id}")
     public String delete(@RequestHeader("X-Later-User-Id") Long userId,
-                         @PathVariable (name = "id") Long id) {
+                         @PathVariable(name = "id") Long id) {
         return itemRequestService.delete(userId, id);
     }
 }

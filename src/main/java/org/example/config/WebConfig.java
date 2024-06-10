@@ -13,7 +13,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebMvc
-public class WebConfig  implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer {
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         for (HttpMessageConverter<?> converter : converters) {

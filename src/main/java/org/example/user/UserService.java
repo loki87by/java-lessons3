@@ -1,6 +1,7 @@
 package org.example.user;
 
 import org.example.utils.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class UserService {
         HashMap<Long, User> users = userRepository.findAll();
         List<UserDTO> dtos = new ArrayList<>();
 
-        for (User user: users.values()) {
+        for (User user : users.values()) {
             dtos.add(new UserMapper().toDTO(user));
         }
         return dtos;

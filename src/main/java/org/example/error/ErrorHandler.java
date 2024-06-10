@@ -14,7 +14,8 @@ public class ErrorHandler {
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleNoHandlerFoundException(final NoHandlerFoundException e) {
-        return new ErrorResponse("Страница не найдена. Проверьте правильность URL-адреса.", "").getMessage();
+        return new ErrorResponse("Страница не найдена. Проверьте правильность URL-адреса.", "")
+                .getMessage();
     }
 
     @ExceptionHandler(SecurityException.class)

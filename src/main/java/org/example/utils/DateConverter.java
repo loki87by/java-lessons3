@@ -1,4 +1,5 @@
 package org.example.utils;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -25,13 +26,6 @@ public class DateConverter {
                 // Continue to the next format
             }
         }
-
         throw new IllegalArgumentException("Unparseable date: " + dateStr);
     }
-/*
-    public static void main(String[] args) {
-        String inputDate = "12-11-2023";
-        Instant result = convertToInstant(inputDate);
-        System.out.println(result);
-    }*/
 }
