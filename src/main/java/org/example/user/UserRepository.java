@@ -1,14 +1,11 @@
 package org.example.user;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-@Repository
-public class UserRepository {
-    private static final List<User> FAKE_USERS = createManyFakeUsers(3);
+@RepositoryRestResource
+public interface UserRepository extends JpaRepository<User, Long> {
+   /* private static final List<User> FAKE_USERS = createManyFakeUsers(3);
     //private static final List<User> users = new ArrayList<>();
 
     public List<User> findAll() {
@@ -34,8 +31,8 @@ public class UserRepository {
         String email = "mail"+id+"@example.com";
         User user = new User();
         user.setId(id);
-        user.setName(name);
+        //user.setName(name);
         user.setEmail(email);
         return user;
-    }
+    }*/
 }

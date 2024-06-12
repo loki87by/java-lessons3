@@ -1,5 +1,6 @@
 package org.example.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,13 +10,20 @@ import java.util.List;
 
 @RestController
 public class UserController {
-    UserRepository userRepository = new UserRepository();
-    @GetMapping("/users")
-    public List<User> getAll() {
-        return userRepository.findAll();
+    private final UserServiceImpl userServiceImpl;
+
+    @Autowired
+    public UserController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
+
+    @GetMapping("/users")
+    public List<UserDTO> getAll() {
+        return userServiceImpl.getAll();
+    }
+
     @PostMapping("/users")
-    public User save(@RequestBody User user) {
-        return userRepository.save(user);
+    public UserDTO save(@RequestBody User user) {
+        return userServiceImpl.save(user);
     }
 }

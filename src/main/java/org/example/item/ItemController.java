@@ -15,12 +15,12 @@ public class ItemController {
     }
 
     @GetMapping("")
-    public List<Item> getItems (@RequestHeader("X-Later-User-Id") Long userId) {
+    public List<ItemDTO> getItems (@RequestHeader("X-Later-User-Id") Long userId) {
         return itemRepository.findByUserId(userId);
     }
 
     @PostMapping("")
-    public Item setItem (@RequestHeader("X-Later-User-Id") Long userId, @RequestParam(name = "url") String url) {
+    public ItemDTO setItem (@RequestHeader("X-Later-User-Id") Long userId, @RequestParam(name = "url") String url) {
         Item item = new Item();
         item.setUserId(userId);
         item.setUrl(url);
