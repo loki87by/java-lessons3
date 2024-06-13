@@ -1,7 +1,7 @@
 package org.example.itemRequest;
 
 import org.example.item.ItemDTO;
-import org.example.user.UserRepository;
+import org.example.user.UserInMemoryRepository;
 import org.example.utils.Utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,65 +13,69 @@ import java.util.NoSuchElementException;
 
 @Service
 public class ItemRequestService {
-    ItemRequestRepository itemRequestRepository;
+    ItemRequestInMemoryRepository itemRequestInMemoryRepository;
     Utils utils;
     ItemRequestMapper itemRequestMapper;
-    UserRepository userRepository;
+    UserInMemoryRepository userInMemoryRepository;
 
     @Autowired
-    public ItemRequestService(ItemRequestRepository itemRequestRepository,
+    public ItemRequestService(ItemRequestInMemoryRepository itemRequestInMemoryRepository,
                               Utils utils,
                               ItemRequestMapper itemRequestMapper,
-                              UserRepository userRepository) {
-        this.itemRequestRepository = itemRequestRepository;
+                              UserInMemoryRepository userInMemoryRepository) {
+        this.itemRequestInMemoryRepository = itemRequestInMemoryRepository;
         this.utils = utils;
         this.itemRequestMapper = itemRequestMapper;
-        this.userRepository = userRepository;
+        this.userInMemoryRepository = userInMemoryRepository;
     }
 
     public List<ItemRequestDTO> findAll() {
-        HashMap<Long, ItemRequest> itemRequests = itemRequestRepository.findAll();
-        return utils.getListDTO(itemRequests.values().stream().toList(), item -> itemRequestMapper.toDTO(item));
+        List<ItemRequest> itemRequests = itemRequestInMemoryRepository.findAll();
+        return utils.getListDTO(itemRequests, item -> itemRequestMapper.toDTO(item));
     }
 
     public List<ItemRequestDTO> findMy(Long userId) {
-        List<ItemRequest> itemRequests = itemRequestRepository.findByUserId(userId);
+        List<ItemRequest> itemRequests = itemRequestInMemoryRepository.findByUserId(userId);
         return utils.getListDTO(itemRequests, item -> itemRequestMapper.toDTO(item));
     }
 
     public ItemRequestDTO save(Long userId, String reqItem) {
-        boolean isRealUser = userRepository.checkUser(userId);
+        boolean isRealUser = userInMemoryRepository.checkUser(userId);
 
         if (!isRealUser) {
             throw new NoSuchElementException("Пользователь с id=" + userId + " не найден. Проверьте заголовки запроса.");
         }
-        HashMap<Long, ItemRequest> itemRequests = itemRequestRepository.findAll();
+        List<ItemRequest> itemRequests = itemRequestInMemoryRepository.findAll();
         Long hash = Math.abs(Long.parseLong(String.valueOf(itemRequests.hashCode())));
-        Long id = utils.getUniqueId(itemRequests, hash);
+        HashMap<Long, ItemRequest> mapa = new HashMap<>();
+        for (ItemRequest ir: itemRequests) {
+            mapa.put(ir.getId(), ir);
+        }
+        Long id = utils.getUniqueId(mapa, hash);
         ItemRequest itemRequest = new ItemRequest();
         itemRequest.setReqItem(reqItem);
         itemRequest.setId(id);
         itemRequest.setAuthor(userId);
-        itemRequestRepository.save(itemRequest);
+        itemRequestInMemoryRepository.save(itemRequest);
         return itemRequestMapper.toDTO(itemRequest);
     }
 
     public String addItem(Long id, ItemDTO dto, Long userId) {
-        boolean isRealUser = userRepository.checkUser(userId);
+        boolean isRealUser = userInMemoryRepository.checkUser(userId);
 
         if (!isRealUser) {
             throw new NoSuchElementException("Пользователь с id=" + userId + " не найден. Проверьте заголовки запроса.");
         }
-        ItemRequestDTO irDto = itemRequestRepository.addItem(userId, dto, id);
+        ItemRequestDTO irDto = itemRequestInMemoryRepository.addItem(userId, dto, id);
         Long itemId = irDto.getRespItem();
         return "Добавлено, доступ по адресу:\nhttp://localhost:8080/items/" + itemId;
     }
 
     public ItemRequestDTO update(Long userId, Long id, String reqItem) {
-        return itemRequestRepository.update(userId, id, reqItem);
+        return itemRequestInMemoryRepository.update(userId, id, reqItem);
     }
 
     public String delete(Long userId, Long id) {
-        return itemRequestRepository.delete(userId, id);
+        return itemRequestInMemoryRepository.delete(userId, id);
     }
 }

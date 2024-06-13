@@ -4,26 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="fix: buggfix &amp; set todos">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/error/ErrorHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/error/ErrorResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/DateConverter.java" afterDir="false" />
+    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="ref: ref repos &amp; entityes + add schema.sql">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingInMemoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemInMemoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestInMemoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserInMemoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/schema.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/LaterApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/LaterApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/booking/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/Booking.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +45,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -41,14 +54,17 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="add-controllers" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2hXiZg83m2W3rXLOfsDaxXKn0hV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -61,7 +77,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "add-controllers",
+    "git-widget-placeholder": "add-bookings",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -69,6 +85,11 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -141,6 +162,7 @@
     <MESSAGE value="init test project" />
     <MESSAGE value="feat: init" />
     <MESSAGE value="fix: buggfix &amp; set todos" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: buggfix &amp; set todos" />
+    <MESSAGE value="ref: ref repos &amp; entityes + add schema.sql" />
+    <option name="LAST_COMMIT_MESSAGE" value="ref: ref repos &amp; entityes + add schema.sql" />
   </component>
 </project>

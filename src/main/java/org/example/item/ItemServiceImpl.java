@@ -1,6 +1,6 @@
 package org.example.item;
 
-import org.example.user.UserRepository;
+import org.example.user.UserInMemoryRepository;
 import org.example.utils.Utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,37 +10,37 @@ import java.util.*;
 
 @Service
 public class ItemServiceImpl implements ItemService {
-    ItemRepository itemRepository;
+    ItemInMemoryRepository itemInMemoryRepository;
     Utils utils;
     ItemMapper itemMapper;
-    UserRepository userRepository;
+    UserInMemoryRepository userInMemoryRepository;
 
     @Autowired
-    public ItemServiceImpl(ItemRepository itemRepository,
+    public ItemServiceImpl(ItemInMemoryRepository itemInMemoryRepository,
                            Utils utils,
                            ItemMapper itemMapper,
-                           UserRepository userRepository) {
-        this.itemRepository = itemRepository;
+                           UserInMemoryRepository userInMemoryRepository) {
+        this.itemInMemoryRepository = itemInMemoryRepository;
         this.utils = utils;
         this.itemMapper = itemMapper;
-        this.userRepository = userRepository;
+        this.userInMemoryRepository = userInMemoryRepository;
     }
 
     @Override
     public List<ItemDTO> findAll() {
-        HashMap<Long, Item> items = itemRepository.findAll();
+        HashMap<Long, Item> items = itemInMemoryRepository.findAll();
         return utils.getListDTO(items.values().stream().toList(), item -> itemMapper.toDTO(item));
     }
 
     @Override
     public List<ItemDTO> findByUserId(Long userId) {
-        List<Item> items = itemRepository.findByUserId(userId);
+        List<Item> items = itemInMemoryRepository.findByUserId(userId);
         return utils.getListDTO(items, item -> itemMapper.toDTO(item));
     }
 
     @Override
     public ItemDTO getItem(Long userId, Long itemId) {
-        Item item = itemRepository.findUserItem(userId, itemId);
+        Item item = itemInMemoryRepository.findUserItem(userId, itemId);
         return itemMapper.toDTO(item);
     }
 
@@ -59,7 +59,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     private void checkEmptyDtoData(ItemDTO dto, Long userId) {
-        boolean isRealUser = userRepository.checkUser(userId);
+        boolean isRealUser = userInMemoryRepository.checkUser(userId);
 
         if (!isRealUser) {
             throw new NoSuchElementException("Пользователь с id=" + userId + " не найден. Проверьте заголовки запроса.");
@@ -73,26 +73,26 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ItemDTO save(ItemDTO dto, Long userId) {
         checkEmptyDtoData(dto, userId);
-        HashMap<Long, Item> items = itemRepository.findAll();
+        HashMap<Long, Item> items = itemInMemoryRepository.findAll();
         Long hash = Math.abs(Long.parseLong(String.valueOf(items.hashCode())));
         Long id = utils.getUniqueId(items, hash);
         Item item = itemMapper.toModel(dto, userId, id);
-        itemRepository.save(item);
+        itemInMemoryRepository.save(item);
         return itemMapper.toDTO(item);
     }
 
     private boolean isOwner(Long userId, Long itemId) {
-        HashMap<Long, Item> items = itemRepository.findAll();
+        HashMap<Long, Item> items = itemInMemoryRepository.findAll();
         return Objects.equals(items.get(itemId).getOwner(), userId);
     }
 
     @Override
     public String deleteByUserIdAndItemId(Long userId, Long itemId) {
-        HashMap<Long, Item> items = itemRepository.findAll();
+        HashMap<Long, Item> items = itemInMemoryRepository.findAll();
         int length = items.size();
 
         if (isOwner(userId, itemId)) {
-            itemRepository.delete(itemId);
+            itemInMemoryRepository.delete(itemId);
             int newLength = items.size();
 
             if (length > newLength) {
@@ -109,7 +109,7 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemMapper.toModel(dto, userId, itemId);
 
         if (isOwner(userId, itemId)) {
-            itemRepository.save(item);
+            itemInMemoryRepository.save(item);
             return "success";
         }
         throw new SecurityException("У вас нет прав для редактирования данного материала.");

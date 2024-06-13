@@ -11,19 +11,19 @@ import java.util.List;
 
 @Service
 public class UserService {
-    UserRepository userRepository;
+    UserInMemoryRepository userInMemoryRepository;
     Utils utils;
     UserMapper userMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, Utils utils, UserMapper userMapper) {
-        this.userRepository = userRepository;
+    public UserService(UserInMemoryRepository userInMemoryRepository, Utils utils, UserMapper userMapper) {
+        this.userInMemoryRepository = userInMemoryRepository;
         this.utils = utils;
         this.userMapper = userMapper;
     }
 
     public List<UserDTO> findAll() {
-        HashMap<Long, User> users = userRepository.findAll();
+        HashMap<Long, User> users = userInMemoryRepository.findAll();
         List<UserDTO> dtos = new ArrayList<>();
 
         for (User user : users.values()) {
@@ -33,24 +33,24 @@ public class UserService {
     }
 
     public User save(UserDTO dto) {
-        HashMap<Long, User> users = userRepository.findAll();
+        HashMap<Long, User> users = userInMemoryRepository.findAll();
         Long hash = Math.abs(Long.parseLong(String.valueOf(users.hashCode())));
         Long id = utils.getUniqueId(users, hash);
         User user = userMapper.toModel(dto, id);
-        userRepository.save(user);
+        userInMemoryRepository.save(user);
         return user;
     }
 
     public UserDTO update(UserDTO dto, Long userId) {
         User user = userMapper.toModel(dto, userId);
-        userRepository.save(user);
+        userInMemoryRepository.save(user);
         return dto;
     }
 
     public String delete(Long userId) {
-        int length = userRepository.findAll().size();
-        userRepository.delete(userId);
-        int newLength = userRepository.findAll().size();
+        int length = userInMemoryRepository.findAll().size();
+        userInMemoryRepository.delete(userId);
+        int newLength = userInMemoryRepository.findAll().size();
 
         if (length > newLength) {
             return "success";

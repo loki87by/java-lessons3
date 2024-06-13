@@ -1,15 +1,21 @@
 package org.example.item;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
+@Entity
+@Table(name = "items")
 public class Item {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "owner_id", nullable = false, updatable = false)
     private Long owner;
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "description", nullable = false, length = 512)
     private String description;
-    private boolean isBooked;
-    private List<String> feedbacks;
+    @Column(name = "is_booked", nullable = false)
+    private boolean isBooked = false;
 }
