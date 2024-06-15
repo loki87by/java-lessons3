@@ -1,5 +1,6 @@
 package org.example.error;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -42,6 +43,12 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String badArgumentsException(final IllegalArgumentException e) {
         return new ErrorResponse("Не полный или некорректный запрос:\n", e.getMessage()).getMessage();
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    public String userEmailAlreadyExistsException(final DataIntegrityViolationException e) {
+        return new ErrorResponse("error: ", e.getMessage()).getMessage();
     }
 
     @ExceptionHandler(RuntimeException.class)

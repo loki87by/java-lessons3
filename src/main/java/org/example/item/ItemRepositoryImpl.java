@@ -7,6 +7,7 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -59,5 +60,19 @@ public class ItemRepositoryImpl implements ItemRepository {
         } else {
             throw new NoSuchElementException("Запрашиваемый ресурс не найден.");
         }
+    }
+
+    @Override
+    public HashMap<Long, Item> findAll() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Item> cr = cb.createQuery(Item.class);
+        Root<Item> root = cr.from(Item.class);
+        cr.select(root);
+        List<Item> items = entityManager.createQuery(cr).getResultList();
+        HashMap<Long, Item> mapa = new HashMap<>();
+        for (Item item: items) {
+            mapa.put(item.getId(), item);
+        }
+        return mapa;
     }
 }

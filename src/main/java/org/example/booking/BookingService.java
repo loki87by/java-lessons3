@@ -4,6 +4,7 @@ import org.example.user.UserInMemoryRepository;
 import org.example.utils.DateConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -12,27 +13,27 @@ import java.util.NoSuchElementException;
 
 @Service
 public class BookingService {
-    BookingInMemoryRepository bookingInMemoryRepository;
+    BookingRepository bookingRepository;
     UserInMemoryRepository userInMemoryRepository;
 
     @Autowired
-    public BookingService(BookingInMemoryRepository bookingInMemoryRepository, UserInMemoryRepository userInMemoryRepository) {
-        this.bookingInMemoryRepository = bookingInMemoryRepository;
+    public BookingService(@Qualifier("bookingRepositoryImpl") BookingRepository bookingRepository, UserInMemoryRepository userInMemoryRepository) {
+        this.bookingRepository = bookingRepository;
         this.userInMemoryRepository = userInMemoryRepository;
     }
 
     public List<BookingDTO> getBookingList(Long userId) {
-        return bookingInMemoryRepository.findRequests(userId);
+        return bookingRepository.findRequests(userId);
     }
 
     public String getStatus(Long bookingId, Long userId) {
-        return bookingInMemoryRepository.getStatus(userId, bookingId);
+        return bookingRepository.getStatus(userId, bookingId);
     }
 
     public String confirm(Long ownerId,
                           Long bookingId,
                           boolean confirm) {
-        return bookingInMemoryRepository.confirm(ownerId, bookingId, confirm);
+        return bookingRepository.confirm(ownerId, bookingId, confirm);
     }
 
     public void checkDates(Instant startDate, Instant endDate) {
@@ -58,7 +59,7 @@ public class BookingService {
         Instant startDate = DateConverter.convertToInstant(startString);
         Instant endDate = DateConverter.convertToInstant(endString);
         checkDates(startDate, endDate);
-        Long id = bookingInMemoryRepository.book(userId, itemId, startDate, endDate);
+        Long id = bookingRepository.book(userId, itemId, startDate, endDate);
 
         if (id != null) {
             return "Заявка зарегистрирована, статус можно посмотреть по адресу:\nhttp://localhost:8080/booking/" + id;
@@ -70,25 +71,25 @@ public class BookingService {
                          Long bookingId,
                          String startString,
                          String endString) {
-        bookingInMemoryRepository.checkPrivate(userId, bookingId, "Нельзя править чужие заявки.");
+        bookingRepository.checkPrivate(userId, bookingId, "Нельзя править чужие заявки.");
 
         if (startString.isEmpty() && endString.isEmpty()) {
             throw new IllegalArgumentException("Изменений не обнаружено.");
         }
         Instant startDate = startString.isEmpty() ?
-                bookingInMemoryRepository.getTime(bookingId, true) :
+                bookingRepository.getTime(bookingId, true) :
                 DateConverter.convertToInstant(startString);
         Instant endDate = endString.isEmpty() ?
-                bookingInMemoryRepository.getTime(bookingId, false) :
+                bookingRepository.getTime(bookingId, false) :
                 DateConverter.convertToInstant(endString);
         checkDates(startDate, endDate);
 
-        return bookingInMemoryRepository.update(bookingId, startDate, endDate);
+        return bookingRepository.update(bookingId, startDate, endDate);
     }
 
     public String delete(Long userId,
                          Long bookingId) {
-        bookingInMemoryRepository.checkPrivate(userId, bookingId, "Нет прав для удаления чужой заявки.");
-        return bookingInMemoryRepository.remove(bookingId);
+        bookingRepository.checkPrivate(userId, bookingId, "Нет прав для удаления чужой заявки.");
+        return bookingRepository.remove(bookingId);
     }
 }

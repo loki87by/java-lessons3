@@ -1,18 +1,17 @@
 package org.example.user;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
+@Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "first_name", nullable = false)
+    private Long id = null;
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "first_name", nullable = false, unique = true, length = 512)
+    @Column(name = "email", nullable = false, unique = true, length = 512)
     private String email;
 }

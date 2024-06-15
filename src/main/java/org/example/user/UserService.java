@@ -3,6 +3,7 @@ package org.example.user;
 import org.example.utils.Utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,19 +12,19 @@ import java.util.List;
 
 @Service
 public class UserService {
-    UserInMemoryRepository userInMemoryRepository;
+    UserRepository userRepository;
     Utils utils;
     UserMapper userMapper;
 
     @Autowired
-    public UserService(UserInMemoryRepository userInMemoryRepository, Utils utils, UserMapper userMapper) {
-        this.userInMemoryRepository = userInMemoryRepository;
+    public UserService(@Qualifier("userRepositoryImpl") UserRepository userRepository, Utils utils, UserMapper userMapper) {
+        this.userRepository = userRepository;
         this.utils = utils;
         this.userMapper = userMapper;
     }
 
     public List<UserDTO> findAll() {
-        HashMap<Long, User> users = userInMemoryRepository.findAll();
+        HashMap<Long, User> users = userRepository.findAll();
         List<UserDTO> dtos = new ArrayList<>();
 
         for (User user : users.values()) {
@@ -33,24 +34,21 @@ public class UserService {
     }
 
     public User save(UserDTO dto) {
-        HashMap<Long, User> users = userInMemoryRepository.findAll();
-        Long hash = Math.abs(Long.parseLong(String.valueOf(users.hashCode())));
-        Long id = utils.getUniqueId(users, hash);
-        User user = userMapper.toModel(dto, id);
-        userInMemoryRepository.save(user);
+        User user = userMapper.toModel(dto);
+        userRepository.save(user);
         return user;
     }
 
     public UserDTO update(UserDTO dto, Long userId) {
         User user = userMapper.toModel(dto, userId);
-        userInMemoryRepository.save(user);
+        userRepository.save(user);
         return dto;
     }
 
     public String delete(Long userId) {
-        int length = userInMemoryRepository.findAll().size();
-        userInMemoryRepository.delete(userId);
-        int newLength = userInMemoryRepository.findAll().size();
+        int length = userRepository.findAll().size();
+        userRepository.delete(userId);
+        int newLength = userRepository.findAll().size();
 
         if (length > newLength) {
             return "success";
