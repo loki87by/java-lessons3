@@ -16,10 +16,10 @@ public class ItemMapper {
 
     public Item toModel(ItemDTO dto, Long owner) {
         Item item = new Item();
-        item.setBooked(dto.isBooked());
+        //item.setBooked(dto.isBooked());
         item.setName(dto.getName());
         item.setDescription(dto.getDescription());
-        item.setOwner(owner);
+        item.setOwnerId(owner);
         return item;
     }
 
@@ -29,7 +29,7 @@ public class ItemMapper {
         item.setName(dto.getName());
         item.setDescription(dto.getDescription());
         item.setId(id);
-        item.setOwner(owner);
+        item.setOwnerId(owner);
         return item;
     }
 }

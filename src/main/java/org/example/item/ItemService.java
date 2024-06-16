@@ -18,5 +18,5 @@ public interface ItemService {
 
     String deleteByUserIdAndItemId(Long userId, Long itemId);
 
-    String update(ItemDTO dto, Long userId, Long itemId);
+    ItemDTO update(ItemDTO dto, Long userId, Long itemId);
 }

@@ -67,7 +67,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Transactional
     public void delete(Long userId) {
         User user = userJPARepository.findUsersById(userId);
-        //System.out.println("\u001B[38;5;44m" + "user: "+user+ "\u001B[0m");
+
         if (user != null) {
             entityManager.remove(user);
         } else {

@@ -11,7 +11,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "owner_id", nullable = false, updatable = false)
-    private Long owner;
+    private Long ownerId;
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "description", nullable = false, length = 512)

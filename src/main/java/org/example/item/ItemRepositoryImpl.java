@@ -1,59 +1,56 @@
 package org.example.item;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Repository
 public class ItemRepositoryImpl implements ItemRepository {
     private final EntityManager entityManager;
+    private final ItemJPARepository itemJPARepository;
     @Autowired
-    public ItemRepositoryImpl(EntityManager entityManager) {
+    public ItemRepositoryImpl(EntityManager entityManager,
+                              ItemJPARepository itemJPARepository) {
         this.entityManager=entityManager;
+        this.itemJPARepository = itemJPARepository;
     }
     @Override
     public List<Item> findByUserId(Long userId) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Item> cr = cb.createQuery(Item.class);
-        Root<Item> root = cr.from(Item.class);
-        cr.select(root).where(cb.equal(root.get("owner_id"), userId));
-        return entityManager.createQuery(cr).getResultList();
+        return itemJPARepository.findAllByOwnerIdIs(userId);
     }
 
-    private Item findItemById(Long itemId) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Item> cr = cb.createQuery(Item.class);
-        Root<Item> root = cr.from(Item.class);
-        cr.select(root).where(cb.equal(root.get("id"), itemId));
-        return entityManager.createQuery(cr).getSingleResult();
+    private Optional<Item> findItemById(Long itemId) {
+        return itemJPARepository.findById(itemId);
     }
 
     @Override
     public Item findUserItem(Long userId, Long itemId) {
-        Item item = findItemById(itemId);
+        Item item = findItemById(itemId).orElse(null);
 
-        if (item.getOwner().equals(userId)) {
+        if (item != null && item.getOwnerId().equals(userId)) {
             return item;
         } else {
             throw new SecurityException("Недостаточно прав или запись отсутствует в БД");
         }
     }
 
+    @Transactional
     @Override
-    public void save(Item item) {
-        entityManager.persist(item);
+    public Item save(Item item) {
+        System.out.println("\u001B[38;5;44m" + "item: "+item+ "\u001B[0m");
+        return itemJPARepository.saveAndFlush(item);
     }
 
     @Override
+    @Transactional
     public void delete(Long itemId) {
-        Item item = findItemById(itemId);
+        Item item = findItemById(itemId).orElse(null);
 
         if (item != null) {
             entityManager.remove(item);
@@ -64,11 +61,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 
     @Override
     public HashMap<Long, Item> findAll() {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Item> cr = cb.createQuery(Item.class);
-        Root<Item> root = cr.from(Item.class);
-        cr.select(root);
-        List<Item> items = entityManager.createQuery(cr).getResultList();
+        List<Item> items = itemJPARepository.findAll();
         HashMap<Long, Item> mapa = new HashMap<>();
         for (Item item: items) {
             mapa.put(item.getId(), item);

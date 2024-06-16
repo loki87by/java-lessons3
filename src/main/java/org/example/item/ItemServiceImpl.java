@@ -1,6 +1,6 @@
 package org.example.item;
 
-import org.example.user.UserInMemoryRepository;
+import org.example.user.UserJPARepository;
 import org.example.utils.Utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,32 +11,32 @@ import java.util.*;
 
 @Service
 public class ItemServiceImpl implements ItemService {
-    ItemRepository itemRepository;
-    Utils utils;
-    ItemMapper itemMapper;
-    UserInMemoryRepository userInMemoryRepository;
+    private final ItemRepository itemRepository;
+    private final Utils utils;
+    private final ItemMapper itemMapper;
+    private final UserJPARepository userRepository;
 
     @Autowired
     public ItemServiceImpl(@Qualifier("itemRepositoryImpl") ItemRepository itemRepository,
+                           UserJPARepository userRepository,
                            Utils utils,
-                           ItemMapper itemMapper,
-                           UserInMemoryRepository userInMemoryRepository) {
+                           ItemMapper itemMapper) {
         this.itemRepository = itemRepository;
         this.utils = utils;
         this.itemMapper = itemMapper;
-        this.userInMemoryRepository = userInMemoryRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public List<ItemDTO> findAll() {
         HashMap<Long, Item> items = itemRepository.findAll();
-        return utils.getListDTO(items.values().stream().toList(), item -> itemMapper.toDTO(item));
+        return utils.getListDTO(items.values().stream().toList(), itemMapper::toDTO);
     }
 
     @Override
     public List<ItemDTO> findByUserId(Long userId) {
         List<Item> items = itemRepository.findByUserId(userId);
-        return utils.getListDTO(items, item -> itemMapper.toDTO(item));
+        return utils.getListDTO(items, itemMapper::toDTO);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     private void checkEmptyDtoData(ItemDTO dto, Long userId) {
-        boolean isRealUser = userInMemoryRepository.checkUser(userId);
+        boolean isRealUser = userRepository.existsById(userId);
 
         if (!isRealUser) {
             throw new NoSuchElementException("Пользователь с id=" + userId + " не найден. Проверьте заголовки запроса.");
@@ -74,44 +74,34 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ItemDTO save(ItemDTO dto, Long userId) {
         checkEmptyDtoData(dto, userId);
-        HashMap<Long, Item> items = itemRepository.findAll();
-        Long hash = Math.abs(Long.parseLong(String.valueOf(items.hashCode())));
-        Long id = utils.getUniqueId(items, hash);
-        Item item = itemMapper.toModel(dto, userId, id);
-        itemRepository.save(item);
-        return itemMapper.toDTO(item);
+        Item item = itemMapper.toModel(dto, userId);
+        Item newItem = itemRepository.save(item);
+        return itemMapper.toDTO(newItem);
     }
 
     private boolean isOwner(Long userId, Long itemId) {
         HashMap<Long, Item> items = itemRepository.findAll();
-        return Objects.equals(items.get(itemId).getOwner(), userId);
+        return Objects.equals(items.get(itemId).getOwnerId(), userId);
     }
 
     @Override
     public String deleteByUserIdAndItemId(Long userId, Long itemId) {
-        HashMap<Long, Item> items = itemRepository.findAll();
-        int length = items.size();
 
         if (isOwner(userId, itemId)) {
             itemRepository.delete(itemId);
-            int newLength = items.size();
-
-            if (length > newLength) {
-                return "success";
-            }
-            throw new NoSuchElementException("С таким id(" + itemId + ") ничего не найдено.");
+            return "success";
         }
         throw new SecurityException("У вас нет прав для удаления данного материала.");
     }
 
     @Override
-    public String update(ItemDTO dto, Long userId, Long itemId) {
+    public ItemDTO update(ItemDTO dto, Long userId, Long itemId) {
         checkEmptyDtoData(dto, userId);
         Item item = itemMapper.toModel(dto, userId, itemId);
 
         if (isOwner(userId, itemId)) {
-            itemRepository.save(item);
-            return "success";
+            Item updatedItem = itemRepository.save(item);
+            return itemMapper.toDTO(updatedItem);
         }
         throw new SecurityException("У вас нет прав для редактирования данного материала.");
     }

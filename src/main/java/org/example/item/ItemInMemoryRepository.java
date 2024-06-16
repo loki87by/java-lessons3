@@ -16,14 +16,14 @@ public class ItemInMemoryRepository implements ItemRepository{
 
     @Override
     public List<Item> findByUserId(Long userId) {
-        return items.values().stream().filter(i -> Objects.equals(i.getOwner(), userId)).toList();
+        return items.values().stream().filter(i -> Objects.equals(i.getOwnerId(), userId)).toList();
     }
 
     @Override
     public Item findUserItem(Long userId, Long itemId) {
         Item item = items.get(itemId);
 
-        if (Objects.equals(item.getOwner(), userId)) {
+        if (Objects.equals(item.getOwnerId(), userId)) {
             return item;
         } else {
             return new Item();
@@ -31,8 +31,9 @@ public class ItemInMemoryRepository implements ItemRepository{
     }
 
     @Override
-    public void save(Item item) {
+    public Item save(Item item) {
         items.put(item.getId(), item);
+        return item;
     }
 
     @Override

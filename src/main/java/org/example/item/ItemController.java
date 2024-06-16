@@ -44,7 +44,7 @@ public class ItemController {
     }
 
     @PatchMapping("/{itemId}")
-    public String updItem(@RequestHeader("X-Later-User-Id") Long userId,
+    public ItemDTO updItem(@RequestHeader("X-Later-User-Id") Long userId,
                           @RequestBody ItemDTO dto,
                           @PathVariable(name = "itemId") Long itemId) {
         return itemService.update(dto, userId, itemId);
