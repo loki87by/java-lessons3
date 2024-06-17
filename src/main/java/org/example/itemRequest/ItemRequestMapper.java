@@ -7,8 +7,8 @@ public class ItemRequestMapper {
 
     public ItemRequestDTO toDTO(ItemRequest itemRequest) {
         ItemRequestDTO dto = new ItemRequestDTO();
-        dto.setRespItem(itemRequest.getRespItem());
-        dto.setReqItem(itemRequest.getReqItem());
+        dto.setRespItemId(itemRequest.getRespItemId());
+        dto.setReqItemName(itemRequest.getReqItemName());
         dto.setId(itemRequest.getId());
         return dto;
     }

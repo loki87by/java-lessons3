@@ -11,7 +11,7 @@ public interface ItemRequestRepository {
 
     List<ItemRequest> findByUserId(Long userId);
 
-    void save(ItemRequest itemRequest);
+    ItemRequest save(ItemRequest itemRequest);
 
     ItemRequestDTO addItem(Long userId, ItemDTO dto, Long iRid);
 

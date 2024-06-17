@@ -1,9 +1,7 @@
 package org.example.itemRequest;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import jakarta.transaction.Transactional;
 import org.example.item.Item;
 import org.example.item.ItemDTO;
 import org.example.item.ItemMapper;
@@ -11,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Repository
@@ -18,74 +17,83 @@ public class ItemRequestRepositoryImpl implements ItemRequestRepository {
     private final EntityManager entityManager;
     private final ItemRequestMapper itemRequestMapper;
     private final ItemMapper itemMapper;
+    private final ItemRequestJPARepository itemRequestJPARepository;
 
     @Autowired
-    public ItemRequestRepositoryImpl(EntityManager entityManager, ItemRequestMapper itemRequestMapper, ItemMapper itemMapper) {
+    public ItemRequestRepositoryImpl(EntityManager entityManager,
+                                     ItemRequestJPARepository itemRequestJPARepository,
+                                     ItemRequestMapper itemRequestMapper,
+                                     ItemMapper itemMapper) {
         this.entityManager = entityManager;
         this.itemRequestMapper = itemRequestMapper;
         this.itemMapper = itemMapper;
+        this.itemRequestJPARepository = itemRequestJPARepository;
     }
 
     @Override
     public List<ItemRequest> findAll() {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<ItemRequest> cr = cb.createQuery(ItemRequest.class);
-        Root<ItemRequest> root = cr.from(ItemRequest.class);
-        cr.select(root);
-        return entityManager.createQuery(cr).getResultList();
+        return itemRequestJPARepository.findAll();
     }
 
     @Override
     public List<ItemRequest> findByUserId(Long userId) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<ItemRequest> cr = cb.createQuery(ItemRequest.class);
-        Root<ItemRequest> root = cr.from(ItemRequest.class);
-        cr.select(root).where(cb.equal(root.get("id"), userId));
-        return entityManager.createQuery(cr).getResultList();
+        return itemRequestJPARepository.findByOwnerId(userId);
     }
 
     @Override
-    public void save(ItemRequest itemRequest) {
-        entityManager.merge(itemRequest);
-    }
-
-    private ItemRequest getItemRequestById(Long iRid) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<ItemRequest> cr = cb.createQuery(ItemRequest.class);
-        Root<ItemRequest> root = cr.from(ItemRequest.class);
-        cr.select(root).where(cb.equal(root.get("id"), iRid));
-        return entityManager.createQuery(cr).getSingleResult();
+    @Transactional
+    public ItemRequest save(ItemRequest itemRequest) {
+        return itemRequestJPARepository.saveAndFlush(itemRequest);
     }
 
     @Override
+    @Transactional
     public ItemRequestDTO addItem(Long userId, ItemDTO dto, Long iRid) {
         Item newItem = itemMapper.toModel(dto, userId);
         entityManager.persist(newItem);
-        ItemRequest itemRequest = getItemRequestById(iRid);
+        Long id = newItem.getId();
+        ItemRequest itemRequest = itemRequestJPARepository.findById(iRid).orElse(null);
+        assert itemRequest != null;
+        //System.out.println("\u001B[38;5;44m" + "itemRequest: "+itemRequest.toString()+ "\u001B[0m");
+        if (itemRequest.getRespItemId() != null) {
+            throw new IllegalArgumentException("Этот запрос уже получил ответ.");
+        }
+        itemRequest.setRespItemId(id);
         entityManager.merge(itemRequest);
         return itemRequestMapper.toDTO(itemRequest);
     }
 
     @Override
+    @Transactional
     public ItemRequestDTO update(Long userId, Long id, String reqItem) {
-        ItemRequest itemRequest = getItemRequestById(id);
-        boolean isOwner = Objects.equals(itemRequest.getAuthor(), userId);
+        ItemRequest itemRequest = itemRequestJPARepository.findById(id).orElse(null);
+
+        if (itemRequest == null) {
+            throw new NoSuchElementException("Не найдено запросов с таким id.");
+        }
+        boolean isOwner = Objects.equals(itemRequest.getOwnerId(), userId);
 
         if (!isOwner) {
-            return new ItemRequestDTO();
+            throw new SecurityException("У вас нет прав для данной операции.");
         } else {
-            entityManager.merge(itemRequest);
-            return itemRequestMapper.toDTO(itemRequest);
+            itemRequest.setReqItemName(reqItem);
+            ItemRequest newitemRequest = itemRequestJPARepository.saveAndFlush(itemRequest);
+            return itemRequestMapper.toDTO(newitemRequest);
         }
     }
 
     @Override
+    @Transactional
     public String delete(Long userId, Long itemRequestId) {
-        ItemRequest itemRequest = getItemRequestById(itemRequestId);
-        boolean isOwner = Objects.equals(itemRequest.getAuthor(), userId);
+        ItemRequest itemRequest = itemRequestJPARepository.findById(itemRequestId).orElse(null);
+
+        if (itemRequest == null) {
+            throw new NoSuchElementException("Не найдено запросов с таким id.");
+        }
+        boolean isOwner = Objects.equals(itemRequest.getOwnerId(), userId);
 
         if (isOwner) {
-            entityManager.remove(itemRequestId);
+            entityManager.remove(itemRequest);
             return "Запись удалена.";
         }
         throw new SecurityException("Error: нет прав для операции.");

@@ -11,9 +11,9 @@ public class ItemRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "owner_id", nullable = false, updatable = false)
-    private Long author;
-    @Column(name = "req_item_name", nullable = false, updatable = false)
-    private String reqItem;
+    private Long ownerId;
+    @Column(name = "req_item_name", nullable = false)
+    private String reqItemName;
     @Column(name = "resp_item_id")
-    private Long respItem = null;
+    private Long respItemId = null;
 }

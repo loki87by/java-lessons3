@@ -39,12 +39,13 @@ public class ItemRequestInMemoryRepository implements ItemRequestRepository {
 
     @Override
     public List<ItemRequest> findByUserId(Long userId) {
-        return itemRequests.values().stream().filter(i -> Objects.equals(i.getAuthor(), userId)).toList();
+        return itemRequests.values().stream().filter(i -> Objects.equals(i.getOwnerId(), userId)).toList();
     }
 
     @Override
-    public void save(ItemRequest itemRequest) {
+    public ItemRequest save(ItemRequest itemRequest) {
         itemRequests.put(itemRequest.getId(), itemRequest);
+        return itemRequest;
     }
 
     @Override
@@ -55,7 +56,7 @@ public class ItemRequestInMemoryRepository implements ItemRequestRepository {
         Item newItem = itemMapper.toModel(dto, userId, id);
         itemInMemoryRepository.save(newItem);
         ItemRequest itemRequest = itemRequests.get(iRid);
-        itemRequest.setRespItem(id);
+        itemRequest.setRespItemId(id);
         itemRequests.put(iRid, itemRequest);
         return itemRequestMapper.toDTO(itemRequest);
     }
@@ -63,12 +64,12 @@ public class ItemRequestInMemoryRepository implements ItemRequestRepository {
     @Override
     public ItemRequestDTO update(Long userId, Long id, String reqItem) {
         ItemRequest itemRequest = itemRequests.get(id);
-        boolean isOwner = Objects.equals(itemRequest.getAuthor(), userId);
+        boolean isOwner = Objects.equals(itemRequest.getOwnerId(), userId);
 
         if (!isOwner) {
             return new ItemRequestDTO();
         } else {
-            itemRequest.setReqItem(reqItem);
+            itemRequest.setReqItemName(reqItem);
             itemRequests.put(id, itemRequest);
             return itemRequestMapper.toDTO(itemRequest);
         }
@@ -77,7 +78,7 @@ public class ItemRequestInMemoryRepository implements ItemRequestRepository {
     @Override
     public String delete(Long userId, Long itemRequestId) {
         ItemRequest itemRequest = itemRequests.get(itemRequestId);
-        boolean isOwner = Objects.equals(itemRequest.getAuthor(), userId);
+        boolean isOwner = Objects.equals(itemRequest.getOwnerId(), userId);
 
         if (isOwner) {
             itemRequests.remove(itemRequestId);

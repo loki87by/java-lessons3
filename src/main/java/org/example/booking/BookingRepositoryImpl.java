@@ -144,7 +144,6 @@ public class BookingRepositoryImpl implements BookingRepository{
         Booking booking = getBookingById(bookingId);
 
         if (booking != null) {
-            //System.out.println("\u001B[38;5;44m" + "booking: "+booking.toString()+ "\u001B[0m");
             Long itemId = booking.getItemId();
             Item item = itemJPARepository.getReferenceById(itemId);
             item.setBooked(false);
