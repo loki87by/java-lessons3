@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="fix: upd booking">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestJPARepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestInMemoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestInMemoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestService.java" afterDir="false" />
-    </list>
+    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="fix: upd itemRequests" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -160,7 +149,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718622937712</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix: upd itemRequests">
+      <option name="closed" value="true" />
+      <created>1718633593980</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1718633593980</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,6 +183,7 @@
     <MESSAGE value="fix: upd user" />
     <MESSAGE value="fix: upd item" />
     <MESSAGE value="fix: upd booking" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: upd booking" />
+    <MESSAGE value="fix: upd itemRequests" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: upd itemRequests" />
   </component>
 </project>
