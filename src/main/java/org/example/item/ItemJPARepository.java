@@ -13,4 +13,5 @@ public interface ItemJPARepository extends JpaRepository<Item, Long> {
 
     @Override
     List<Item> findAll();
+    List<Item> findItemsByOwnerIdAndBookedIsTrue(Long id);
 }

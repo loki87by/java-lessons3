@@ -43,7 +43,6 @@ public class ItemRepositoryImpl implements ItemRepository {
     @Transactional
     @Override
     public Item save(Item item) {
-        System.out.println("\u001B[38;5;44m" + "item: "+item+ "\u001B[0m");
         return itemJPARepository.saveAndFlush(item);
     }
 

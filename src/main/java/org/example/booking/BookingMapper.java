@@ -15,16 +15,4 @@ public class BookingMapper {
         dto.setId(booking.getId());
         return dto;
     }
-
-/*    public Booking toModel (BookingDTO dto, Long user, Long itemId) {
-        Booking booking = new Booking();
-        booking.setItemId(itemId);
-        booking.setUser(user);
-        booking.setId(dto.getId());
-        booking.setStartDate(DateConverter.convertToInstant(dto.getStartDate()));
-        booking.setEndDate(DateConverter.convertToInstant(dto.getEndDate()));
-        booking.setBooked(dto.isBooked());
-        booking.setBookingConfirm(dto.getBookingConfirm());
-        return booking;
-    }*/
 }

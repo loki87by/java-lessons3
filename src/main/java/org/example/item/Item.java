@@ -17,5 +17,5 @@ public class Item {
     @Column(name = "description", nullable = false, length = 512)
     private String description;
     @Column(name = "is_booked", nullable = false)
-    private boolean isBooked = false;
+    private boolean booked = false;
 }

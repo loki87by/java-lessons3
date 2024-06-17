@@ -51,7 +51,7 @@ public class BookingInMemoryRepository implements BookingRepository {
             throw new NoSuchElementException("Не найдено записей о бронировании с таким id.");
         }
 
-        if (!Objects.equals(booking.getUser(), userId)) {
+        if (!Objects.equals(booking.getOwnerId(), userId)) {
             throw new SecurityException(errorText);
         }
     }

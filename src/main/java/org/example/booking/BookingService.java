@@ -1,6 +1,6 @@
 package org.example.booking;
 
-import org.example.user.UserInMemoryRepository;
+import org.example.user.UserRepository;
 import org.example.utils.DateConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +13,14 @@ import java.util.NoSuchElementException;
 
 @Service
 public class BookingService {
-    BookingRepository bookingRepository;
-    UserInMemoryRepository userInMemoryRepository;
+    private final BookingRepository bookingRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public BookingService(@Qualifier("bookingRepositoryImpl") BookingRepository bookingRepository, UserInMemoryRepository userInMemoryRepository) {
+    public BookingService(@Qualifier("bookingRepositoryImpl") BookingRepository bookingRepository,
+                          @Qualifier("userRepositoryImpl") UserRepository userRepository) {
         this.bookingRepository = bookingRepository;
-        this.userInMemoryRepository = userInMemoryRepository;
+        this.userRepository = userRepository;
     }
 
     public List<BookingDTO> getBookingList(Long userId) {
@@ -51,7 +52,7 @@ public class BookingService {
                        Long itemId,
                        String startString,
                        String endString) {
-        boolean isRealUser = userInMemoryRepository.checkUser(userId);
+        boolean isRealUser = userRepository.checkUser(userId);
 
         if (!isRealUser) {
             throw new NoSuchElementException("Пользователь с id=" + userId + " не найден. Проверьте заголовки запроса.");
