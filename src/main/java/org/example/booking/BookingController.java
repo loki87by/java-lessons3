@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/booking")
+@RequestMapping("/bookings")
 public class BookingController {
     BookingService bookingService;
 
@@ -16,9 +16,17 @@ public class BookingController {
     }
 
     //просмотр заявок к пользователю
+    @GetMapping("owner")
+    public List<BookingDTO> getList(@RequestHeader("X-Later-User-Id") Long userId,
+                                    @RequestParam(name = "state", required = false, defaultValue = "ALL") String state) {
+        return bookingService.getBookingList(userId, state);
+    }
+
+    //просмотр заявок пользователя
     @GetMapping("")
-    public List<BookingDTO> getList(@RequestHeader("X-Later-User-Id") Long userId) {
-        return bookingService.getBookingList(userId);
+    public List<BookingDTO> getListWithState(@RequestHeader("X-Later-User-Id") Long userId,
+                                    @RequestParam(name = "state", required = false, defaultValue = "ALL") String state) {
+        return bookingService.getBookingListWithState(userId, state);
     }
 
     //просмотр заявки оставленной пользователем
@@ -41,7 +49,7 @@ public class BookingController {
     @PostMapping("/{bookingId}")
     public String confirm(@RequestHeader("X-Later-User-Id") Long ownerId,
                           @PathVariable(name = "bookingId") Long bookingId,
-                          @RequestParam("confirm") boolean confirm) {
+                          @RequestParam("approved") boolean confirm) {
         return bookingService.confirm(ownerId, bookingId, confirm);
     }
 

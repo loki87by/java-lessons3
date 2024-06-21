@@ -10,9 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class BookingRepositoryImpl implements BookingRepository{
@@ -38,12 +37,64 @@ public class BookingRepositoryImpl implements BookingRepository{
         return bookingJPARepository.findById(id).orElse(null);
     }
 
+    private BookingStatus parseBookingStatus(String status) {
+        return switch (status.toUpperCase()) {
+            case "WAITING" -> BookingStatus.WAITING;
+            case "APPROVED" -> BookingStatus.APPROVED;
+            case "REJECTED" -> BookingStatus.REJECTED;
+            default -> null;
+        };
+    }
+
+    private List<BookingDTO> getDtoList(List<Booking> bookings, String state) {
+        List<Booking> books = new ArrayList<>();
+
+        if (state.equalsIgnoreCase("ALL")) {
+            books = bookings;
+        } else if (state.equalsIgnoreCase("PAST")) {
+            Instant today = Instant.now();
+            books = bookings.stream()
+                    .filter(booking -> booking.getEndDate().isBefore(today))
+                    .toList();
+        } else if (state.equalsIgnoreCase("FUTURE")) {
+            Instant today = Instant.now();
+            books = bookings.stream()
+                    .filter(booking -> booking.getStartDate().isAfter(today))
+                    .toList();
+        } else if (state.equalsIgnoreCase("CURRENT")) {
+            Instant today = Instant.now();
+            books = bookings.stream()
+                    .filter(booking -> (booking.getStartDate().isBefore(today) || booking.getStartDate().equals(today))
+                            && (booking.getEndDate().isAfter(today) || booking.getEndDate().equals(today)))
+                    .collect(Collectors.toList());
+        } else {
+            BookingStatus status = parseBookingStatus(state);
+            if (status != null) {
+                books = bookings.stream()
+                        .filter(booking -> booking.getState() == status)
+                        .collect(Collectors.toList());
+            }
+        }
+
+        List<Booking> sortedBooks = books.stream()
+                .sorted(Comparator.comparing(Booking::getCreatedDate))
+                .toList();
+        return utils.getListDTO(sortedBooks, mapper::toDTO);
+    }
+
     @Override
-    public List<BookingDTO> findRequests(Long ownerId) {
+    public List<BookingDTO> findRequests(Long ownerId, String state) {
         List<Item> userItems = itemJPARepository.findItemsByOwnerIdAndBookedIsTrue(ownerId);
+        //System.out.println("\u001B[38;5;44m" + "userItems: "+userItems.toString()+ "\u001B[0m");
         List<Long> userItemsIds = userItems.stream().map(Item::getId).toList();
         List<Booking> books = bookingJPARepository.findAllByItemIdIn(userItemsIds);
-        return utils.getListDTO(books, mapper::toDTO);
+        return getDtoList(books, state);
+    }
+
+    @Override
+    public List<BookingDTO> findRequestsWithState(Long ownerId, String state) {
+        List<Booking> userBookings = bookingJPARepository.findAllByOwnerId(ownerId);
+        return getDtoList(userBookings, state);
     }
 
     @Override
@@ -59,9 +110,26 @@ public class BookingRepositoryImpl implements BookingRepository{
         }
     }
 
+    private Item checkOwnersItem(Long userId, Booking booking) {
+        List<Item> userItems = itemJPARepository.findAllByOwnerIdIs(userId);
+        return userItems.stream().filter(i -> Objects.equals(i.getId(), booking.getItemId())).toList().getFirst();
+    }
+
+    private boolean isItemOwner(Long ownerId, Long bookingId) {
+        Booking booking = bookingJPARepository.findById(bookingId).orElse(null);
+
+        if(booking == null) {
+            throw new NoSuchElementException("Не найдено записей о бронировании с таким id.");
+        }
+        Item item = checkOwnersItem(ownerId, booking);
+        return item != null;
+    }
+
     @Override
     public String getStatus(Long userId, Long bookingId) {
-        checkPrivate(userId, bookingId, "Нельзя посмотреть статус чужой заявки.");
+        if (!isItemOwner(userId, bookingId)) {
+            checkPrivate(userId, bookingId, "Нельзя посмотреть статус чужой заявки.");
+        }
         Booking booking = bookingJPARepository.findById(bookingId).orElse(null);
 
         if(booking == null) {
@@ -79,22 +147,12 @@ public class BookingRepositoryImpl implements BookingRepository{
         }
     }
 
-    private Item checkOwnersItem(Long userId, Booking booking) {
-        List<Item> userItems = itemJPARepository.findAllByOwnerIdIs(userId);
-        return userItems.stream().filter(i -> Objects.equals(i.getId(), booking.getItemId())).toList().getFirst();
-    }
-
     @Override
     @Transactional
     public String confirm(Long ownerId, Long bookingId, boolean confirm) {
         Booking booking = bookingJPARepository.findById(bookingId).orElse(null);
 
-        if(booking == null) {
-            throw new NoSuchElementException("Не найдено записей о бронировании с таким id.");
-        }
-        Item item = checkOwnersItem(ownerId, booking);
-
-        if (item != null) {
+        if (isItemOwner(ownerId, bookingId) && booking != null) {
             booking.setState(confirm ? BookingStatus.values()[1] : BookingStatus.values()[2]);
             entityManager.merge(booking);
             return confirm ? "Заявка одобрена" : "Заявка отклонена";

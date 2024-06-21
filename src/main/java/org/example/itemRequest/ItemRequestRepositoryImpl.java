@@ -54,7 +54,7 @@ public class ItemRequestRepositoryImpl implements ItemRequestRepository {
         Long id = newItem.getId();
         ItemRequest itemRequest = itemRequestJPARepository.findById(iRid).orElse(null);
         assert itemRequest != null;
-        //System.out.println("\u001B[38;5;44m" + "itemRequest: "+itemRequest.toString()+ "\u001B[0m");
+
         if (itemRequest.getRespItemId() != null) {
             throw new IllegalArgumentException("Этот запрос уже получил ответ.");
         }

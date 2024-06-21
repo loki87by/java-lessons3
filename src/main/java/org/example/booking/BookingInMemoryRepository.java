@@ -31,7 +31,7 @@ public class BookingInMemoryRepository implements BookingRepository {
     }
 
     @Override
-    public List<BookingDTO> findRequests(Long userId) {
+    public List<BookingDTO> findRequests(Long userId, String state) {
         List<BookingDTO> dtos = new ArrayList<>();
         for (Booking booking : bookings.values()) {
             Item item = checkOwnersItem(userId, booking);
@@ -41,6 +41,11 @@ public class BookingInMemoryRepository implements BookingRepository {
             }
         }
         return dtos;
+    }
+
+    @Override
+    public List<BookingDTO> findRequestsWithState(Long userId, String state) {
+        return null;
     }
 
     @Override

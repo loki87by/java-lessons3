@@ -8,7 +8,9 @@ import java.util.List;
 @RepositoryRestResource
 public interface BookingRepository {
 
-    List<BookingDTO> findRequests(Long userId);
+    List<BookingDTO> findRequests(Long userId, String state);
+
+    List<BookingDTO> findRequestsWithState(Long userId, String state);
 
     void checkPrivate(Long userId, Long bookingId, String errorText);
 

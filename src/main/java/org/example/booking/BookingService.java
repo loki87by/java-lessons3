@@ -23,8 +23,12 @@ public class BookingService {
         this.userRepository = userRepository;
     }
 
-    public List<BookingDTO> getBookingList(Long userId) {
-        return bookingRepository.findRequests(userId);
+    public List<BookingDTO> getBookingList(Long userId, String state) {
+        return bookingRepository.findRequests(userId, state);
+    }
+
+    public List<BookingDTO> getBookingListWithState(Long userId, String state) {
+        return bookingRepository.findRequestsWithState(userId, state);
     }
 
     public String getStatus(Long bookingId, Long userId) {
