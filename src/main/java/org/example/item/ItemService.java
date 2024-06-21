@@ -16,6 +16,8 @@ public interface ItemService {
 
     ItemDTO save(ItemDTO dto, Long userId);
 
+    String setComment(Long itemId, Long userId, String content);
+
     String deleteByUserIdAndItemId(Long userId, Long itemId);
 
     ItemDTO update(ItemDTO dto, Long userId, Long itemId);

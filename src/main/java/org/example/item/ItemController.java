@@ -43,6 +43,12 @@ public class ItemController {
         return itemService.save(dto, userId);
     }
 
+    @PostMapping("/{itemId}/comment")
+    public String setComment(@RequestHeader("X-Later-User-Id") Long userId, @RequestBody String content,
+                           @PathVariable(name = "itemId") Long itemId) {
+        return itemService.setComment(itemId, userId, content);
+    }
+
     @PatchMapping("/{itemId}")
     public ItemDTO updItem(@RequestHeader("X-Later-User-Id") Long userId,
                           @RequestBody ItemDTO dto,

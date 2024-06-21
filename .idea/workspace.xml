@@ -4,15 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="docs: upd readme">
+    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="feat: add comments">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/item/Comment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/item/CommentDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/item/CommentJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/item/CommentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/item/CommentRepositoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingInMemoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingInMemoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingJPARepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingJPARepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/booking/BookingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/itemRequest/ItemRequestRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/schema.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,9 +78,9 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.example.item" />
       <recent name="org.example.itemRequest" />
       <recent name="org.example.booking" />
-      <recent name="org.example.item" />
       <recent name="org.example.user" />
     </key>
   </component>
@@ -93,7 +100,7 @@
       <option name="presentableId" value="Default" />
       <updated>1717746886611</updated>
       <workItem from="1717746887647" duration="98939000" />
-      <workItem from="1718909379452" duration="11541000" />
+      <workItem from="1718909379452" duration="18406000" />
     </task>
     <task id="LOCAL-00001" summary="init test project">
       <option name="closed" value="true" />
@@ -175,7 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718633873597</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fix: fix bookings bt td">
+      <option name="closed" value="true" />
+      <created>1718983623539</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1718983623539</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,6 +218,8 @@
     <MESSAGE value="fix: upd booking" />
     <MESSAGE value="fix: upd itemRequests" />
     <MESSAGE value="docs: upd readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="docs: upd readme" />
+    <MESSAGE value="fix: fix bookings bt td" />
+    <MESSAGE value="feat: add comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add comments" />
   </component>
 </project>

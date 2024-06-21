@@ -29,10 +29,10 @@ CREATE TABLE IF NOT EXISTS item_requests (
     resp_item_id BIGINT REFERENCES items(id)
     );
 
-CREATE TABLE IF NOT EXISTS feedbacks (
+CREATE TABLE IF NOT EXISTS comments (
     id SERIAL PRIMARY KEY,
-    description VARCHAR(200) NOT NULL,
-    feedback_date TIMESTAMP NOT NULL,
+    description VARCHAR(512) NOT NULL,
+    feedback_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     owner_id BIGINT REFERENCES users(id),
     item_id BIGINT REFERENCES items(id)
     );

@@ -85,7 +85,6 @@ public class BookingRepositoryImpl implements BookingRepository{
     @Override
     public List<BookingDTO> findRequests(Long ownerId, String state) {
         List<Item> userItems = itemJPARepository.findItemsByOwnerIdAndBookedIsTrue(ownerId);
-        //System.out.println("\u001B[38;5;44m" + "userItems: "+userItems.toString()+ "\u001B[0m");
         List<Long> userItemsIds = userItems.stream().map(Item::getId).toList();
         List<Booking> books = bookingJPARepository.findAllByItemIdIn(userItemsIds);
         return getDtoList(books, state);

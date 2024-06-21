@@ -1,5 +1,6 @@
 package org.example.item;
 
+import org.example.booking.BookingJPARepository;
 import org.example.user.UserJPARepository;
 import org.example.utils.Utils;
 
@@ -7,24 +8,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.*;
 
 @Service
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
+    private final CommentRepository commentRepository;
     private final Utils utils;
     private final ItemMapper itemMapper;
     private final UserJPARepository userRepository;
+    private final BookingJPARepository bookingJPARepository;
 
     @Autowired
     public ItemServiceImpl(@Qualifier("itemRepositoryImpl") ItemRepository itemRepository,
                            UserJPARepository userRepository,
+                           CommentRepository commentRepository,
                            Utils utils,
-                           ItemMapper itemMapper) {
+                           ItemMapper itemMapper,
+                           BookingJPARepository bookingJPARepository) {
         this.itemRepository = itemRepository;
         this.utils = utils;
         this.itemMapper = itemMapper;
         this.userRepository = userRepository;
+        this.commentRepository = commentRepository;
+        this.bookingJPARepository = bookingJPARepository;
     }
 
     @Override
@@ -77,6 +85,15 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemMapper.toModel(dto, userId);
         Item newItem = itemRepository.save(item);
         return itemMapper.toDTO(newItem);
+    }
+
+    @Override
+    public String setComment(Long itemId, Long userId, String content){
+
+        if (bookingJPARepository.findByOwnerIdAndItemIdAndEndDateIsBefore(userId, itemId, Instant.now()) != null) {
+            return commentRepository.setComment(itemId, userId, content);
+        }
+        throw new SecurityException("Нет прав или была допущена ошибка.");
     }
 
     private boolean isOwner(Long userId, Long itemId) {
