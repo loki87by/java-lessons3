@@ -10,20 +10,20 @@ import java.util.List;
 
 @RestController
 public class UserController {
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserServiceImpl userServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/users")
     public List<UserDTO> getAll() {
-        return userServiceImpl.getAll();
+        return userService.getAll();
     }
 
     @PostMapping("/users")
     public UserDTO save(@RequestBody User user) {
-        return userServiceImpl.save(user);
+        return userService.save(user);
     }
 }

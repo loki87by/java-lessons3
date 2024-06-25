@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
     private final UserRepositoryImpl userRepositoryImpl;
     //private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -23,7 +23,12 @@ public class UserServiceImpl {
         this.userMapper = userMapper;
     }
 
-    @Transactional(readOnly = true)
+    /*@Autowired
+    public UserServiceImpl(@Qualifier("entityManager") EntityManager entityManager, UserMapper userMapper) {
+        this.userRepositoryImpl = new UserRepositoryImpl(entityManager);
+        this.userMapper = userMapper;
+    }*/
+    //@Transactional(readOnly = true)
     /*
     @Transactional(@Transactional(propagation Propagation.REQUIRED)
     Параметр propagation может принимать следующие значения:
@@ -76,6 +81,7 @@ public class UserServiceImpl {
     возникающие в работе с параллельными транзакциями
     */
 
+    @Override
     public List<UserDTO> getAll() {
         return userRepositoryImpl.findAll()
                 .stream()
@@ -83,8 +89,16 @@ public class UserServiceImpl {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public UserDTO save(User user) {
         return userMapper.toObj(userRepositoryImpl.save(user));
+    }
+
+    @Override
+    @Transactional
+    public void saveUser(UserDTO userDTO) {
+        User user = userMapper.toModel(userDTO);
+        userRepositoryImpl.save(user);
     }
 
 /*    public void checkUsers() {

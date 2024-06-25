@@ -1,5 +1,8 @@
 package org.example.user;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserMapper {
     public User toModel (UserDTO dto/*, Long id*/) {
         User user = new User();

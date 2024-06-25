@@ -18,7 +18,7 @@ public class ItemRepositoryImpl  implements  ItemRepositoryCustom{
 
     @Override
     public List<ItemInfoWithUrlState> findAndCheckLinkValidityAndSaveStatus () {
-        return ItemRepository.findAll().stream()
+        return itemRepository.findAll().stream()
                 .map(item -> new ItemInfoWithUrlState(item, checkUrl(item.getUrl())))
                 .collect(Collectors.toList());
     }
