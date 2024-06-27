@@ -20,7 +20,7 @@ public class ItemController {
     }
 
     @PostMapping("")
-    public ItemDTO setItem (@RequestHeader("X-Later-User-Id") Long userId, @RequestParam(name = "url") String url) {
+    public Item setItem (@RequestHeader("X-Later-User-Id") Long userId, @RequestParam(name = "url") String url) {
         Item item = new Item();
         item.setUserId(userId);
         item.setUrl(url);

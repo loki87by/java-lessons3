@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import lombok.Data;
 
-import java.time.Instant;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -35,7 +35,7 @@ public class Item {
     @Column(name = "has_video")
     private boolean hasVideo;
     @Column(name = "date_resolved", nullable = false)
-    private Instant dateResolved;
+    private Timestamp dateResolved;
 
 
 

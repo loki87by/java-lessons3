@@ -13,6 +13,16 @@ public class ItemMapper {
         item.setUserId(userId);
         return item;
     }*/
+    public Item addMetadata (Item item, UrlMetadataRetriever.UrlMetadata meta) {
+        item.setHasImage(meta.isHasImage());
+        item.setUrl(meta.getNormalUrl());
+        item.setDateResolved(meta.getDateResolved());
+        item.setHasVideo(meta.isHasVideo());
+        item.setMimeType(meta.getMimeType());
+        item.setResolvedUrl(meta.getResolvedUrl());
+        item.setTitle(meta.getTitle());
+        return item;
+    }
 
     public ItemDTO toObj (Item item) {
         ItemDTO dto = new ItemDTO() {

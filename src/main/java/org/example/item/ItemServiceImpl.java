@@ -1,6 +1,5 @@
 package org.example.item;
 
-import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -12,14 +11,17 @@ import java.util.stream.Collectors;
 @Component
 public class ItemServiceImpl {
     private final List<Item> items = new ArrayList<>();
-    @Qualifier("entityManager")
-    private final EntityManager entityManager;
     private final ItemMapper itemMapper;
+    private final UrlMetadataRetriever urlMetadataRetriever;
+    private final ItemJPARepository itemJPARepository;
 
     @Autowired
-    public ItemServiceImpl(ItemMapper itemMapper, EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public ItemServiceImpl(ItemMapper itemMapper,
+                           ItemJPARepository itemJPARepository,
+                           @Qualifier("urlMetadataRetrieverImpl") UrlMetadataRetriever urlMetadataRetriever) {
         this.itemMapper = itemMapper;
+        this.urlMetadataRetriever = urlMetadataRetriever;
+        this.itemJPARepository = itemJPARepository;
     }
 
     public List<ItemDTO> findByUserId(long userId) {
@@ -29,9 +31,15 @@ public class ItemServiceImpl {
                 .collect(Collectors.toList());
     }
 
-    public ItemDTO save(Item item) {
-        entityManager.persist(item);
-        return itemMapper.toObj(item);
+    public Item save(Item item) {
+        UrlMetadataRetriever.UrlMetadata meta = urlMetadataRetriever.retrieve(item.getUrl());
+        System.out.println("meta: "+meta);
+        Item updItem = new ItemMapper().addMetadata(item, meta);
+        System.out.println("updItem: "+updItem);
+        return itemJPARepository.saveAndFlush(updItem);
+        //System.out.println("resultItem: "+resultItem);
+        //entityManager.persist(updItem);
+        //return itemMapper.toObj(resultItem);
     }
 
     public void deleteByUserIdAndItemId(long userId, long itemId) {

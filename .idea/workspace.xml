@@ -4,32 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="feat: add controller tests">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqlDataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/ServiceConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/error/InvalidArgumentExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/error/ItemRetrieverException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/error/UrlMetadataExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/item/UrlMetadataRetriever.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/item/UrlMetadataRetrieverImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserJPARepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/user/UserControllerTestWithContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="fix: fix item">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemJPARepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/jl3.mv.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/LaterApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/LaterApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/PersistenceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/PersistenceConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/user/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/user/UserControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/UrlMetadataRetriever.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/UrlMetadataRetriever.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/UrlMetadataRetrieverImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/UrlMetadataRetrieverImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,8 +77,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="user" />
       <recent name="org.example.item" />
+      <recent name="user" />
       <recent name="org.example.user" />
     </key>
   </component>
@@ -148,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719485964813</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix: fix user">
+      <option name="closed" value="true" />
+      <created>1719515991159</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719515991159</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,6 +151,8 @@
     <MESSAGE value="fix: fix start project" />
     <MESSAGE value="feat: add db" />
     <MESSAGE value="feat: add controller tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add controller tests" />
+    <MESSAGE value="fix: fix user" />
+    <MESSAGE value="fix: fix item" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: fix item" />
   </component>
 </project>

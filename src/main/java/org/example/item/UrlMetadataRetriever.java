@@ -1,7 +1,10 @@
 package org.example.item;
 
-import java.time.Instant;
+import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+
+@Service
 public interface UrlMetadataRetriever {
     interface UrlMetadata{
         String getNormalUrl();
@@ -10,7 +13,7 @@ public interface UrlMetadataRetriever {
         String getTitle();
         boolean isHasImage();
         boolean isHasVideo();
-        Instant getDateResolved();
+        Timestamp getDateResolved();
     }
-    public UrlMetadata retrieve(String url);
+    UrlMetadata retrieve (String url);
 }

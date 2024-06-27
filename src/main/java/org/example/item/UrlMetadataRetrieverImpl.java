@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
 import org.springframework.util.MimeType;
 
 import java.io.File;
@@ -17,8 +18,10 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.sql.Timestamp;
 import java.time.Instant;
 
+@Service
 public class UrlMetadataRetrieverImpl implements UrlMetadataRetriever{
     @lombok.Value
     @Builder(toBuilder = true)
@@ -29,9 +32,9 @@ public class UrlMetadataRetrieverImpl implements UrlMetadataRetriever{
         String title;
         boolean hasImage;
         boolean hasVideo;
-        Instant dateResolved;
+        Timestamp dateResolved;
         @Override
-        public Instant getDateResolved() {
+        public Timestamp getDateResolved() {
             return dateResolved;
         }
     }
@@ -109,12 +112,11 @@ public class UrlMetadataRetrieverImpl implements UrlMetadataRetriever{
             throw new ItemRetrieverException("The content type [" + mediaType
                     + "] at the specified URL is not supported.");
         }
-        result.toBuilder()
-                .dateResolved(Instant.now())
+        return result.toBuilder()
+                .dateResolved(Timestamp.from(Instant.now()))
                 .mimeType(String.valueOf(mediaType))
                 .normalUrl(url)
                 .resolvedUrl(String.valueOf(finalUrl))
                 .build();
-        return result;
     }
 }
