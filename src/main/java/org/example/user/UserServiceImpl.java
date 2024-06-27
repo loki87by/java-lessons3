@@ -90,8 +90,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDTO save(User user) {
-        return userMapper.toObj(userRepositoryImpl.save(user));
+        User res = userRepositoryImpl.save(user);
+        System.out.println("res: "+res);
+        return userMapper.toObj(res);
     }
 
     @Override

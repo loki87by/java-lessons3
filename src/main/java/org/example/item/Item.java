@@ -4,24 +4,40 @@ import jakarta.persistence.*;
 
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "items")
+@Table(name = "items", schema = "public")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "user_id", nullable = false)
     private Long userId;
+    @Column(name = "url", nullable = false)
     private String url;
     @ElementCollection
     @CollectionTable(name = "tags", joinColumns = @JoinColumn(name = "item_id"))
     @Column(name="name")
     private Set<String> tags = new HashSet<>();
+    @Column(name = "resolved_url", nullable = false, length = 512)
+    private String resolvedUrl;
+    @Column(name = "mime_type", nullable = false)
+    private String mimeType;
+    @Column(name = "title", nullable = false, length = 512)
+    private String title;
+    @Column(name = "has_image")
+    private boolean hasImage;
+    @Column(name = "has_video")
+    private boolean hasVideo;
+    @Column(name = "date_resolved", nullable = false)
+    private Instant dateResolved;
+
+
 
     @Override
     public boolean equals(Object o) {

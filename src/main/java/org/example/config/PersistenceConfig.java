@@ -41,6 +41,7 @@ public class PersistenceConfig {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
+        properties.put("hibernate.hbm2ddl.auto", "create");
         return properties;
     }
 
@@ -56,11 +57,12 @@ public class PersistenceConfig {
 
         return emf;
     }
-@Bean
-@Primary
-public EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
-    return entityManagerFactory.createEntityManager();
-}
+
+    @Bean
+    @Primary
+    public EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
+        return entityManagerFactory.createEntityManager();
+    }
 
     @Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {

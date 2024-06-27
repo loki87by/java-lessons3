@@ -3,6 +3,7 @@ package org.example.user;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.time.Instant;
 
 @Data
@@ -18,7 +19,7 @@ public class User {
     private String lastName;
     private String email; //@Transient for not saving in DB
     @Column(name = "registration_date")
-    private Instant registrationDate = Instant.now();
+    private Timestamp registrationDate = Timestamp.from(Instant.now());
     @Enumerated(EnumType.STRING) //EnumType.ORDINAL - for index from enum
     private UserState state;
 }
