@@ -2,6 +2,7 @@ package org.example.item;
 
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 @Component
 public class ItemServiceImpl {
     private final List<Item> items = new ArrayList<>();
+    @Qualifier("entityManager")
     private final EntityManager entityManager;
     private final ItemMapper itemMapper;
 

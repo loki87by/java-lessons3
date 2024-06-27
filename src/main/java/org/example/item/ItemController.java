@@ -8,15 +8,15 @@ import java.util.List;
 @RequestMapping("/items")
 public class ItemController {
 
-    private final ItemServiceImpl  itemRepository;
+    private final ItemServiceImpl  itemServiceImpl;
     @Autowired
-    public ItemController(ItemServiceImpl  itemRepository) {
-        this.itemRepository = itemRepository;
+    public ItemController(ItemServiceImpl  itemServiceImpl) {
+        this.itemServiceImpl = itemServiceImpl;
     }
 
     @GetMapping("")
     public List<ItemDTO> getItems (@RequestHeader("X-Later-User-Id") Long userId) {
-        return itemRepository.findByUserId(userId);
+        return itemServiceImpl.findByUserId(userId);
     }
 
     @PostMapping("")
@@ -24,11 +24,11 @@ public class ItemController {
         Item item = new Item();
         item.setUserId(userId);
         item.setUrl(url);
-        return itemRepository.save(item);
+        return itemServiceImpl.save(item);
     }
 
     @DeleteMapping("/{itemId}")
     public void deleteItem (@RequestHeader("X-Later-User-Id") Long userId, @PathVariable(name = "itemId") Long itemId) {
-        itemRepository.deleteByUserIdAndItemId(userId, itemId);
+        itemServiceImpl.deleteByUserIdAndItemId(userId, itemId);
     }
 }

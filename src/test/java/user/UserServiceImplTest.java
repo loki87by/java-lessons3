@@ -1,18 +1,27 @@
 package user;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
+
 import lombok.RequiredArgsConstructor;
+
 import org.example.config.PersistenceConfig;
+import org.example.config.TestConfig;
 import org.example.user.*;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
@@ -21,35 +30,34 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@Transactional
 @Rollback(false)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @TestPropertySource(properties = {"db.name=test"})
 @SpringJUnitConfig( {PersistenceConfig.class, UserServiceImpl.class})
+@ContextConfiguration(classes = TestConfig.class)
 class UserServiceImplTest {
 
-    private final EntityManager em;
+    @Autowired
+    private EntityManager entityManager;
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
     @Autowired
     private UserService service;
+    @Autowired
+    private PlatformTransactionManager transactionManager;
 
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        UserMapper userMapper = Mockito.mock(UserMapper.class);
-        UserRepositoryImpl userRepositoryImpl = new UserRepositoryImpl(em);
-        service = new UserServiceImpl(userRepositoryImpl, userMapper);
-    }
     @Test
+    @Transactional
     void saveUser() {
-        UserDTO userDTO = makeUserDto("some@email.com", "Пётр", "Иванов");
-        /*EntityManager entityManager = Mockito.mock(EntityManager.class);
+        MockitoAnnotations.initMocks(this);
+        transactionManager = new JpaTransactionManager(entityManagerFactory);
+        UserMapper mockedUserMapper = Mockito.mock(UserMapper.class);
         UserRepositoryImpl userRepositoryImpl = new UserRepositoryImpl(entityManager);
-        Mockito.when(entityManager.createQuery("Select u from User u where u.email = :email", User.class))
-                .thenReturn(Mockito.mock(TypedQuery.class));
-        service = new UserServiceImpl(userRepositoryImpl, userMapper);*/
+        service = new UserServiceImpl(userRepositoryImpl, mockedUserMapper);
+        UserDTO userDTO = makeUserDto("some@email.com", "Пётр", "Иванов");
         service.saveUser(userDTO);
 
-        TypedQuery<User> query = em.createQuery("Select u from User u where u.email = :email", User.class);
+        TypedQuery<User> query = entityManager.createQuery("Select u from User u where u.email = :email", User.class);
         User user = query.setParameter("email", userDTO.getEmail()).getSingleResult();
 
         assertThat(user.getId(), notNullValue());
