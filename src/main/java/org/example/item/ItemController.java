@@ -15,7 +15,7 @@ public class ItemController {
     }
 
     @GetMapping("")
-    public List<ItemDTO> getItems (@RequestHeader("X-Later-User-Id") Long userId) {
+    public List<Item> getItems (@RequestHeader("X-Later-User-Id") Long userId) {
         return itemServiceImpl.findByUserId(userId);
     }
 
@@ -27,8 +27,8 @@ public class ItemController {
         return itemServiceImpl.save(item);
     }
 
-    @DeleteMapping("/{itemId}")
+    /*@DeleteMapping("/{itemId}")
     public void deleteItem (@RequestHeader("X-Later-User-Id") Long userId, @PathVariable(name = "itemId") Long itemId) {
         itemServiceImpl.deleteByUserIdAndItemId(userId, itemId);
-    }
+    }*/
 }

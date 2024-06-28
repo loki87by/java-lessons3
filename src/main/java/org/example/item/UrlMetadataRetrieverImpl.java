@@ -90,9 +90,20 @@ public class UrlMetadataRetrieverImpl implements UrlMetadataRetriever{
         } catch (URISyntaxException e) {
             throw new ItemRetrieverException("The URL is malformed: " + url, e);
         }
+        URI finalUrl = null;
+        URI currentUrl = uri;
 
+        while (currentUrl != null) {
+            HttpResponse<Void> resp = connect(currentUrl, "HEAD", HttpResponse.BodyHandlers.discarding());
+            finalUrl = currentUrl;
+            String newUrl = resp.headers().firstValue("Location").orElse(null);
+            if (newUrl != null) {
+                currentUrl = URI.create(newUrl);
+            } else {
+                currentUrl = null;
+            }
+        }
         HttpResponse<Void> resp = connect(uri, "HEAD", HttpResponse.BodyHandlers.discarding());
-        URI finalUrl = resp.uri();
 
         String contentType = resp.headers()
                 .firstValue("Content-Type")
@@ -103,11 +114,11 @@ public class UrlMetadataRetrieverImpl implements UrlMetadataRetriever{
         final UrlMetadataImpl result;
 
         if(mediaType.isCompatibleWith(MimeType.valueOf("text/*"))) {
-            result = handleText(resp.uri());
+            result = handleText(finalUrl);
         } else if(mediaType.isCompatibleWith(MimeType.valueOf("image/*"))) {
-            result = handleImage(resp.uri());
+            result = handleImage(finalUrl);
         } else if(mediaType.isCompatibleWith(MimeType.valueOf("text/*"))) {
-            result = handleVideo(resp.uri());
+            result = handleVideo(finalUrl);
         } else {
             throw new ItemRetrieverException("The content type [" + mediaType
                     + "] at the specified URL is not supported.");

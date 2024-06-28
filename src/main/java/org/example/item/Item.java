@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
+//import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+//import java.util.Set;
 
 @Data
 @Entity
@@ -20,10 +20,10 @@ public class Item {
     private Long userId;
     @Column(name = "url", nullable = false)
     private String url;
-    @ElementCollection
+    /*@ElementCollection
     @CollectionTable(name = "tags", joinColumns = @JoinColumn(name = "item_id"))
     @Column(name="name")
-    private Set<String> tags = new HashSet<>();
+    private Set<String> tags = new HashSet<>();*/
     @Column(name = "resolved_url", nullable = false, length = 512)
     private String resolvedUrl;
     @Column(name = "mime_type", nullable = false)
@@ -46,12 +46,12 @@ public class Item {
         Item item = (Item) o;
         return Objects.equals(id, item.id) &&
                 Objects.equals(userId, item.userId) &&
-                Objects.equals(url, item.url) &&
-                Objects.equals(tags, item.tags);
+                Objects.equals(url, item.url)/* &&
+                Objects.equals(tags, item.tags)*/;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, url, tags);
+        return Objects.hash(id, userId, url/*, tags*/);
     }
 }
