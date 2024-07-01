@@ -7,20 +7,10 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-public class ItemRepositoryImpl  implements  ItemRepositoryCustom{
+public class ItemRepositoryImpl  {
     private final ItemRepository itemRepository;
     public ItemRepositoryImpl(@Lazy ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
-    }
-
-    @Override
-    public List<ItemInfoWithUrlState> findAndCheckLinkValidityAndSaveStatus () {
-        return itemRepository.findAll().stream()
-                .map(item -> new ItemInfoWithUrlState(item, checkUrl(item.getUrl())))
-                .collect(Collectors.toList());
     }
 
     private String checkUrl(String url) {

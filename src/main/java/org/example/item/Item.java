@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
-//import java.util.HashSet;
+import java.util.HashSet;
 import java.util.Objects;
-//import java.util.Set;
+import java.util.Set;
 
 @Data
 @Entity
@@ -20,10 +20,10 @@ public class Item {
     private Long userId;
     @Column(name = "url", nullable = false)
     private String url;
-    /*@ElementCollection
+    @ElementCollection
     @CollectionTable(name = "tags", joinColumns = @JoinColumn(name = "item_id"))
     @Column(name="name")
-    private Set<String> tags = new HashSet<>();*/
+    private Set<String> tags = new HashSet<>();
     @Column(name = "resolved_url", nullable = false, length = 512)
     private String resolvedUrl;
     @Column(name = "mime_type", nullable = false)
@@ -36,6 +36,7 @@ public class Item {
     private boolean hasVideo;
     @Column(name = "date_resolved", nullable = false)
     private Timestamp dateResolved;
+    boolean unread = true;
 
 
 

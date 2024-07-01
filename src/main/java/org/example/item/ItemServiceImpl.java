@@ -2,13 +2,14 @@ package org.example.item;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
 
-@Component
+@Service
 public class ItemServiceImpl {
+
     private final ItemMapper itemMapper;
     private final UrlMetadataRetriever urlMetadataRetriever;
     private final ItemJPARepository itemJPARepository;
@@ -23,8 +24,58 @@ public class ItemServiceImpl {
     }
 
     @Transactional
-    public List<Item> findByUserId(Long userId) {
-        return itemJPARepository.findItemsByUserId(userId);
+    public List<ItemDTO> findByUserId(GetItemsRequest req) {
+        Boolean state;
+
+        if (req.getState() == LINK_STATE.READ) {
+            state = false;
+        } else if (req.getState() == LINK_STATE.UNREAD) {
+            state = true;
+        } else {
+            state = null;
+        }
+        String contentType;
+
+        if (req.getContentType() == LINK_CONTENT_TYPE.ARTICLE) {
+            contentType = "text";
+        } else if (req.getContentType() == LINK_CONTENT_TYPE.IMAGE) {
+            contentType = "image";
+        } else if (req.getContentType() == LINK_CONTENT_TYPE.VIDEO) {
+            contentType = "video";
+        } else {
+            contentType = null;
+        }
+        Set<String> tg = null;
+
+        if(!req.getTags().isEmpty()) {
+            tg = new HashSet<>(req.getTags());
+        }
+        List<Item> items = itemJPARepository.findItemsByUserIdAndUnreadAndMimeTypeContainingAndTags(req.getUserId(),
+                state,
+                contentType,
+                tg);
+
+        if (req.getSort() != null) {
+            switch (req.getSort()) {
+                case OLDEST:
+                    items.sort(Comparator.comparing(Item::getDateResolved));
+                    break;
+                case TITLE:
+                    items.sort(Comparator.comparing(Item::getTitle));
+                    break;
+                default:
+                    items.sort(Comparator.comparing(Item::getDateResolved).reversed());
+            }
+        }
+
+        //System.out.println("\u001B[38;5;44m" + "items: "+items+ "\u001B[0m");
+        List<ItemDTO> result = new ArrayList<>();
+        int minSize = Math.min(items.size(), req.getLimit());
+        for (int i = 0; i < minSize; i++) {
+            result.add(itemMapper.toObj(items.get(i)));
+        }
+
+        return result;
     }
 
     @Transactional

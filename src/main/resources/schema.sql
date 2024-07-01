@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS items (
     mime_type VARCHAR(256) NOT NULL,
     has_image boolean,
     has_video boolean,
+    unread boolean NOT NULL,
     resolved_url VARCHAR(512) NOT NULL,
     date_resolved TIMESTAMP,
     CONSTRAINT fk_users

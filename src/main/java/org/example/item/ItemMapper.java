@@ -2,8 +2,6 @@ package org.example.item;
 
 import org.springframework.stereotype.Component;
 
-//import java.util.Set;
-
 @Component
 public class ItemMapper {
 /*    public Item toModel (ItemDTO dto, Long userId) {
@@ -25,29 +23,17 @@ public class ItemMapper {
     }
 
     public ItemDTO toObj (Item item) {
-        ItemDTO dto = new ItemDTO() {
-            /*@Override
-            public Set<String> getTags() {
-                return null;
-            }*/
-
-            @Override
-            public String getUrl() {
-                return null;
-            }
-
-            /*@Override
-            public void setTags(Set<String> tags) {
-
-            }*/
-
-            @Override
-            public void setUrl(String url) {
-
-            }
-        };
-        //dto.setTags(item.getTags());
+        ItemDTO dto = new ItemDTO();
+        dto.setId(item.getId());
         dto.setUrl(item.getUrl());
+        dto.setTags(item.getTags());
+        dto.setResolvedUrl(item.getResolvedUrl());
+        dto.setMimeType(item.getMimeType());
+        dto.setTitle(item.getTitle());
+        dto.setHasImage(item.isHasImage());
+        dto.setHasVideo(item.isHasVideo());
+        dto.setDateResolved(item.getDateResolved());
+        dto.setUnread(item.isUnread());
         return dto;
     }
 }

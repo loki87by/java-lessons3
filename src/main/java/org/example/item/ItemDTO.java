@@ -1,13 +1,21 @@
 package org.example.item;
 
-//import java.util.Set;
+import lombok.Data;
 
-public interface ItemDTO {
-   // Set<String> getTags();
+import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
-    String getUrl();
-
-    //void setTags(Set<String> tags);
-
-    void setUrl(String url);
+@Data
+public class ItemDTO {
+    private Long id;
+    private String url;
+    private Set<String> tags = new HashSet<>();
+    private String resolvedUrl;
+    private String mimeType;
+    private String title;
+    private boolean hasImage;
+    private boolean hasVideo;
+    private Timestamp dateResolved;
+    boolean unread = true;
 }
