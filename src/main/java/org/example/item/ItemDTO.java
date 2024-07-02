@@ -18,4 +18,29 @@ public class ItemDTO {
     private boolean hasVideo;
     private Timestamp dateResolved;
     boolean unread = true;
+
+    public ItemDTO() {
+    }
+
+    public ItemDTO(Long id,
+                   String url,
+                   Set<String> tags,
+                   String resolvedUrl,
+                   String mimeType,
+                   String title,
+                   boolean hasImage,
+                   boolean hasVideo,
+                   Timestamp dateResolved,
+                   boolean unread) {
+        this.id = id;
+        this.url = url;
+        this.tags = tags;
+        this.resolvedUrl = resolvedUrl;
+        this.mimeType = mimeType;
+        this.title = title;
+        this.hasImage = hasImage;
+        this.hasVideo = hasVideo;
+        this.dateResolved = dateResolved;
+        this.unread = unread;
+    }
 }

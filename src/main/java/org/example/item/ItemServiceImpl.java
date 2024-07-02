@@ -1,5 +1,6 @@
 package org.example.item;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -10,15 +11,15 @@ import java.util.*;
 @Service
 public class ItemServiceImpl {
 
-    private final ItemMapper itemMapper;
+    //private final ItemMapper itemMapper;
     private final UrlMetadataRetriever urlMetadataRetriever;
     private final ItemJPARepository itemJPARepository;
 
     @Autowired
-    public ItemServiceImpl(ItemMapper itemMapper,
+    public ItemServiceImpl(/*ItemMapper itemMapper,*/
                            ItemJPARepository itemJPARepository,
                            @Qualifier("urlMetadataRetrieverImpl") UrlMetadataRetriever urlMetadataRetriever) {
-        this.itemMapper = itemMapper;
+        //this.itemMapper = itemMapper;
         this.urlMetadataRetriever = urlMetadataRetriever;
         this.itemJPARepository = itemJPARepository;
     }
@@ -67,12 +68,22 @@ public class ItemServiceImpl {
                     items.sort(Comparator.comparing(Item::getDateResolved).reversed());
             }
         }
+        items.forEach(item -> Hibernate.initialize(item.getTags()));
 
         //System.out.println("\u001B[38;5;44m" + "items: "+items+ "\u001B[0m");
         List<ItemDTO> result = new ArrayList<>();
         int minSize = Math.min(items.size(), req.getLimit());
         for (int i = 0; i < minSize; i++) {
-            result.add(itemMapper.toObj(items.get(i)));
+            result.add(new ItemDTO(items.get(i).getId(),
+                    items.get(i).getUrl(),
+                    items.get(i).getTags(),
+                    items.get(i).getResolvedUrl(),
+                    items.get(i).getMimeType(),
+                    items.get(i).getTitle(),
+                    items.get(i).isHasImage(),
+                    items.get(i).isHasVideo(),
+                    items.get(i).getDateResolved(),
+                    items.get(i).isUnread()));
         }
 
         return result;
@@ -80,26 +91,80 @@ public class ItemServiceImpl {
 
     @Transactional
     public Item save(Item item) {
-        UrlMetadataRetriever.UrlMetadata meta = urlMetadataRetriever.retrieve(item.getUrl());
-        String resUrl = meta.getResolvedUrl();
-        boolean hasDuplicates = itemJPARepository.countItemsByResolvedUrl(resUrl) > 0;
 
-        if (hasDuplicates) {
-            Item oldItem = itemJPARepository.findItemByResolvedUrl(resUrl);
-            Item updItem = new ItemMapper().addMetadata(oldItem, meta);
+        /*if (item.getId() != null && itemJPARepository.existsById(item.getId())) {
+            Item existingItem = itemJPARepository.findById(item.getId()).orElse(null);
+
+            if (existingItem != null) {
+                UrlMetadataRetriever.UrlMetadata meta = urlMetadataRetriever.retrieve(item.getUrl());
+                Item updatedItem = new ItemMapper().addMetadata(existingItem, meta); // Обновление полей существующего объекта
+                return itemJPARepository.saveAndFlush(updatedItem);
+            } else {
+                throw new RuntimeException("Item with id " + item.getId() + " not found");
+            }
+        } else {*/
+            UrlMetadataRetriever.UrlMetadata meta = urlMetadataRetriever.retrieve(item.getUrl());
+            String resUrl = meta.getResolvedUrl();
+            boolean hasDuplicates = itemJPARepository.countItemsByResolvedUrl(resUrl) > 0;
+
+            if (hasDuplicates) {
+                Item oldItem = itemJPARepository.findItemByResolvedUrl(resUrl);
+                Item updItem = new ItemMapper().addMetadata(oldItem, meta);
+                return itemJPARepository.saveAndFlush(updItem);
+            }
+            Item updItem = new ItemMapper().addMetadata(item, meta);
             return itemJPARepository.saveAndFlush(updItem);
-        }
-        Item updItem = new ItemMapper().addMetadata(item, meta);
-        return itemJPARepository.saveAndFlush(updItem);
+        //}
     }
 
-    /*public void deleteByUserIdAndItemId(long userId, long itemId) {
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getId() == itemId && items.get(i).getUserId() == userId) {
-                items.remove(i);
-                break;
-            }
+    private Set<String> updateTags(Long itemId, Set<String> tags, boolean isReplaceTags) {
+
+        if (!isReplaceTags) {
+            return itemJPARepository.saveUniqueTagsForItem(itemId, tags);
+        } else {
+            return itemJPARepository.replaceTagsForItem(itemId, tags);
         }
-    }*/
+    }
+
+    private Item getItemByIds (Long userId, Long itemId) {
+        List<Item> uItems = itemJPARepository.findItemsByUserId(userId);
+        return uItems.stream().filter(item -> Objects.equals(item.getId(), itemId)).findFirst().orElse(null);
+    }
+
+    @Transactional
+    public Item update(ModifyItemRequest req) {
+        Item item = getItemByIds(req.getUserId(), req.getItemId());
+
+        if (item == null) {
+            throw new IllegalArgumentException();
+        }
+        Set<String> newTags = updateTags(req.getItemId(), req.getTags(), req.isReplaceTags());
+        String url = item.getUrl();
+
+        final Item updatedItem;
+        if(req.getUrl() != null && !req.getUrl().equals(url)) {
+            item.setUrl(url);
+            updatedItem = save(item);
+        } else {
+            updatedItem = item;
+        }
+
+        if(req.getUnread() != null) {
+            updatedItem.setUnread(req.getUnread());
+        }
+        updatedItem.setTags(newTags);
+        return updatedItem;
+    }
+
+    @Transactional
+    public void deleteByUserIdAndItemId(long userId, long itemId) {
+        Item item = getItemByIds(userId, itemId);
+
+        if (item != null) {
+            itemJPARepository.deleteItemById(itemId);
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
 
 }
