@@ -10,5 +10,5 @@ public interface UserService {
 
     UserDTO save(User user);
 
-    void saveUser(UserDTO userDTO);
+    User saveUser(UserDTO userDTO);
 }

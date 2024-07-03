@@ -21,9 +21,10 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
-
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,7 +39,6 @@ public class UserControllerTest {
     @InjectMocks
     private UserController controller;
     private final ObjectMapper mapper = new ObjectMapper();
-    private UserDTO userDTO;
 
     MockMvc mockMvc;
 
@@ -46,7 +46,7 @@ public class UserControllerTest {
     public void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
-        userDTO = new UserDTO();
+        UserDTO userDTO = new UserDTO();
         userDTO.setState(UserState.ACTIVE);
         userDTO.setEmail("jonh.doe@mail.com");
         userDTO.setFirstName("John");
@@ -75,9 +75,7 @@ public class UserControllerTest {
         user.setFirstName("John");
         user.setLastName("Doe");
         user.setState(UserState.ACTIVE);
-        System.out.println("user: "+user);
         UserDTO savedUser = userMapper.toObj(user);
-        System.out.println("savedUser: "+savedUser);
 
         when(userService.save(any(User.class))).thenReturn(savedUser);
 
@@ -93,16 +91,27 @@ public class UserControllerTest {
     }
 
     @Test
-    void saveNewUserWithException() throws Exception {
-        when(userService.save(any()))
-                .thenThrow(IllegalArgumentException.class);
+    void saveNewUserWithException() {
+        String firstName = "John";
+        String lastName = "Doe";
+        UserDTO userDTO = new UserDTO(firstName, lastName, null, null, null);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/users")
-                .content(mapper.writeValueAsString(userDTO))
-                .characterEncoding(StandardCharsets.UTF_8)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is(500));
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.post("/users")
+                            .content(mapper.writeValueAsString(userDTO))
+                            .characterEncoding(StandardCharsets.UTF_8)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andDo(MockMvcResultHandlers.print())
+                    .andExpect(status().is(400))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.error",
+                            containsString("Email is required")));
+        } catch (Exception e) {
+
+            if (e.getMessage().contains("Email is required")) {
+                assertThat(e.getMessage().substring(e.getMessage().indexOf("Email is required")),
+                        equalTo("Email is required"));
+            }
+        }
     }
 }

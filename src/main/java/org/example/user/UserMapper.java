@@ -4,9 +4,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    public User toModel (UserDTO dto/*, Long id*/) {
+    public User toModel(UserDTO dto) {
+        //System.out.println("\u001B[38;5;44m" + "MAPPER OUTPUT--dto: " + dto + "\u001B[0m");
         User user = new User();
-        //user.setId(id);
         user.setEmail(dto.getEmail());
         user.setState(dto.getState());
         user.setLastName(dto.getLastName());

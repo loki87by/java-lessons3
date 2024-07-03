@@ -3,7 +3,7 @@ package org.example.user;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface UserRepository {
+public interface UserRepository /*extends JpaRepository<User, Long>*/ {
    /* private static final List<User> FAKE_USERS = createManyFakeUsers(3);
     //private static final List<User> users = new ArrayList<>();
 

@@ -2,32 +2,21 @@ package org.example.user;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.domain.PageRequest;
-//import org.springframework.data.domain.Pageable;
-//import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private final UserRepositoryImpl userRepositoryImpl;
-    //private final UserRepository userRepository;
-    private final UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepositoryImpl userRepositoryImpl, /*UserRepository userRepository,*/ UserMapper userMapper) {
-        this.userRepositoryImpl = userRepositoryImpl;
-        //this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
+    private UserRepositoryImpl userRepositoryImpl;
 
-    /*@Autowired
-    public UserServiceImpl(@Qualifier("entityManager") EntityManager entityManager, UserMapper userMapper) {
-        this.userRepositoryImpl = new UserRepositoryImpl(entityManager);
-        this.userMapper = userMapper;
-    }*/
+    @Autowired
+    private UserMapper userMapper;
+
     //@Transactional(readOnly = true)
     /*
     @Transactional(@Transactional(propagation Propagation.REQUIRED)
@@ -93,15 +82,17 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDTO save(User user) {
         User res = userRepositoryImpl.save(user);
-        System.out.println("res: "+res);
         return userMapper.toObj(res);
     }
 
     @Override
     @Transactional
-    public void saveUser(UserDTO userDTO) {
+    public User saveUser(UserDTO userDTO) {
+        //System.out.println("\u001B[38;5;44m" + "SERVICE OUTPUT--userDTO(svc): "+userDTO+ "\u001B[0m");
         User user = userMapper.toModel(userDTO);
-        userRepositoryImpl.save(user);
+        User savedUser = userRepositoryImpl.save(user);
+        user.setRegistrationDate(new Timestamp(System.currentTimeMillis()));
+        return savedUser;
     }
 
 /*    public void checkUsers() {

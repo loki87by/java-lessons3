@@ -9,10 +9,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Repository
 public class UserRepositoryImpl implements UserRepository {
     private final EntityManager entityManager;
-    private final UserJPARepository userJPARepository ;
+    private final UserJPARepository userJPARepository;
 
     @Autowired
     public UserRepositoryImpl(EntityManager entityManager, UserJPARepository userJPARepository) {
@@ -20,24 +21,16 @@ public class UserRepositoryImpl implements UserRepository {
         this.userJPARepository = userJPARepository;
     }
 
-/*    public List<User> searchByEmailDomain(String domain) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<User> cr = cb.createQuery(User.class);
-        Root<User> root = cr.from(User.class);
-        cr.select(root).where(cb.like(root.get("email"), "%"+domain));
-        return entityManager.createQuery(cr).getResultList();
-    }*/
-
     @Transactional
     public User save(User user) {
-        System.out.println("id: "+user.getId());
+        final User savedUser;
+
         if (user.getId() == null) {
-            return userJPARepository.saveAndFlush(user);
-            //entityManager.persist(user);
+            savedUser = userJPARepository.saveAndFlush(user);
         } else {
-            user = entityManager.merge(user);
-            return user;
+            savedUser = entityManager.merge(user);
         }
+        return savedUser;
     }
 
     public List<User> findAll() {
@@ -48,4 +41,12 @@ public class UserRepositoryImpl implements UserRepository {
 
         return entityManager.createQuery(cr).getResultList();
     }
+
+/*    public User findByEmail(String email) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> cr = cb.createQuery(User.class);
+        Root<User> root = cr.from(User.class);
+        cr.select(root).where(cb.equal(root.get("email"), email));
+        return entityManager.createQuery(cr).getSingleResult();
+    }*/
 }

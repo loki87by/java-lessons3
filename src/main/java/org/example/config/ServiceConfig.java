@@ -9,17 +9,12 @@ import jakarta.persistence.EntityManager;
 public class ServiceConfig {
 
     @Bean
-    public UserService userService(UserRepositoryImpl userRepositoryImpl, UserMapper userMapper) {
-        return new UserServiceImpl(userRepositoryImpl, userMapper);
+    public UserService userService() {
+        return new UserServiceImpl();
     }
 
     @Bean
     public UserRepositoryImpl userRepositoryImpl(EntityManager entityManager, UserJPARepository userJPARepository) {
         return new UserRepositoryImpl(entityManager, userJPARepository);
-    }
-
-    @Bean
-    public UserMapper userMapper() {
-        return new UserMapper();
     }
 }

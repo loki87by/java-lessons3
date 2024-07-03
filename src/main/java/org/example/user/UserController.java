@@ -25,6 +25,11 @@ public class UserController {
 
     @PostMapping("/users")
     public UserDTO save(@RequestBody User user) {
-        return userService.save(user);
+
+        if (user.getEmail() == null || user.getEmail().isEmpty()) {
+            throw new IllegalArgumentException("Email is required");
+        } else {
+            return userService.save(user);
+        }
     }
 }
