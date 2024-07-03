@@ -81,7 +81,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDTO save(User user) {
+        user.setState(UserState.ACTIVE);
         User res = userRepositoryImpl.save(user);
+        System.out.println("\u001B[38;5;44m" + "SERVICE OUTPUT--res: "+res+ "\u001B[0m");
         return userMapper.toObj(res);
     }
 
@@ -90,9 +92,8 @@ public class UserServiceImpl implements UserService {
     public User saveUser(UserDTO userDTO) {
         //System.out.println("\u001B[38;5;44m" + "SERVICE OUTPUT--userDTO(svc): "+userDTO+ "\u001B[0m");
         User user = userMapper.toModel(userDTO);
-        User savedUser = userRepositoryImpl.save(user);
         user.setRegistrationDate(new Timestamp(System.currentTimeMillis()));
-        return savedUser;
+        return userRepositoryImpl.save(user);
     }
 
 /*    public void checkUsers() {
