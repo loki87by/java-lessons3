@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepositoryImpl userRepositoryImpl;
+    private UserRepositoryImpl userRepository;
 
     @Autowired
     private UserMapper userMapper;
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getAll() {
-        return userRepositoryImpl.findAll()
+        return userRepository.findAll()
                 .stream()
                 .map(userMapper::toObj)
                 .collect(Collectors.toList());
@@ -82,18 +82,16 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDTO save(User user) {
         user.setState(UserState.ACTIVE);
-        User res = userRepositoryImpl.save(user);
-        System.out.println("\u001B[38;5;44m" + "SERVICE OUTPUT--res: "+res+ "\u001B[0m");
+        User res = userRepository.save(user);
         return userMapper.toObj(res);
     }
 
     @Override
     @Transactional
     public User saveUser(UserDTO userDTO) {
-        //System.out.println("\u001B[38;5;44m" + "SERVICE OUTPUT--userDTO(svc): "+userDTO+ "\u001B[0m");
         User user = userMapper.toModel(userDTO);
         user.setRegistrationDate(new Timestamp(System.currentTimeMillis()));
-        return userRepositoryImpl.save(user);
+        return userRepository.save(user);
     }
 
 /*    public void checkUsers() {

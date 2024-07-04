@@ -16,10 +16,10 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @PropertySource("classpath:application.properties")
-@EnableJpaRepositories(basePackages = "org.example")
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"org.example"})
+@EnableJpaRepositories(basePackages = "org.example")
 public class PersistenceConfig {
 
     @Autowired

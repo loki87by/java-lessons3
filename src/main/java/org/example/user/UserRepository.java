@@ -4,6 +4,11 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface UserRepository /*extends JpaRepository<User, Long>*/ {
+    /*@Transactional
+    User save(User user);
+
+    @Transactional
+    List<User> findAll();*/
    /* private static final List<User> FAKE_USERS = createManyFakeUsers(3);
     //private static final List<User> users = new ArrayList<>();
 

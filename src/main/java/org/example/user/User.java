@@ -22,4 +22,15 @@ public class User {
     private Timestamp registrationDate = Timestamp.from(Instant.now());
     @Enumerated(EnumType.STRING) //EnumType.ORDINAL - for index from enum
     private UserState state;
+
+    public User() {
+    }
+
+    public User(Long id, String firstName, String lastName, String email, UserState state) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.state = state;
+    }
 }
