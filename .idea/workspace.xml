@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="fix: buggfix">
-      <change afterPath="$PROJECT_DIR$/src/test/java/user/UserServiceTest.java" afterDir="false" />
+    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="feat: add svc.getUsersTest">
+      <change afterPath="$PROJECT_DIR$/src/test/java/user/UserRepositoryImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/user/UserRepositoryTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/PersistenceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/PersistenceConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/TestConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/TestConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/user/UserServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/user/UserServiceImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +49,12 @@
     "Application.LaterApplication.executor": "Run",
     "JUnit.UserControllerTest.executor": "Run",
     "JUnit.UserControllerTestWithContext.executor": "Run",
+    "JUnit.UserRepositoryImplTest.executor": "Run",
+    "JUnit.UserRepositoryTest.executor": "Run",
+    "JUnit.UserRepositoryTest.getAll.executor": "Run",
+    "JUnit.UserRepositoryTest.getUsers.executor": "Run",
+    "JUnit.UserRepositoryTest.setUsers.executor": "Run",
+    "JUnit.UserRepositoryTest.testGetAll.executor": "Run",
     "JUnit.UserServiceImplTest.executor": "Run",
     "JUnit.UserServiceImplTest.getUsers.executor": "Run",
     "JUnit.UserServiceImplTest.saveUser.executor": "Run",
@@ -85,8 +89,8 @@
       <recent name="C:\Users\Akuluch\Desktop\personal\develope\java-lessons3\src\test" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="org.example.item" />
       <recent name="user" />
+      <recent name="org.example.item" />
       <recent name="org.example.user" />
     </key>
   </component>
@@ -95,8 +99,8 @@
       <command value="mvn clean compile" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserServiceImplTest.getUsers">
-    <configuration name="UserControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.UserRepositoryImplTest">
+    <configuration name="UserRepositoryImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-lessons3" />
       <extension name="coverage">
         <pattern>
@@ -105,13 +109,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="user" />
-      <option name="MAIN_CLASS_NAME" value="user.UserControllerTest" />
+      <option name="MAIN_CLASS_NAME" value="user.UserRepositoryImplTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-lessons3" />
       <extension name="coverage">
         <pattern>
@@ -120,13 +124,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="user" />
-      <option name="MAIN_CLASS_NAME" value="user.UserServiceImplTest" />
+      <option name="MAIN_CLASS_NAME" value="user.UserRepositoryTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceImplTest.getUsers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserRepositoryTest.getAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-lessons3" />
       <extension name="coverage">
         <pattern>
@@ -135,14 +139,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="user" />
-      <option name="MAIN_CLASS_NAME" value="user.UserServiceImplTest" />
-      <option name="METHOD_NAME" value="getUsers" />
+      <option name="MAIN_CLASS_NAME" value="user.UserRepositoryTest" />
+      <option name="METHOD_NAME" value="getAll" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceImplTest.saveUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserRepositoryTest.setUsers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-lessons3" />
       <extension name="coverage">
         <pattern>
@@ -151,14 +155,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="user" />
-      <option name="MAIN_CLASS_NAME" value="user.UserServiceImplTest" />
-      <option name="METHOD_NAME" value="saveUser" />
+      <option name="MAIN_CLASS_NAME" value="user.UserRepositoryTest" />
+      <option name="METHOD_NAME" value="setUsers" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceTest.saveUser_savesUserCorrectly" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserRepositoryTest.testGetAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-lessons3" />
       <extension name="coverage">
         <pattern>
@@ -167,8 +171,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="user" />
-      <option name="MAIN_CLASS_NAME" value="user.UserServiceTest" />
-      <option name="METHOD_NAME" value="saveUser_savesUserCorrectly" />
+      <option name="MAIN_CLASS_NAME" value="user.UserRepositoryTest" />
+      <option name="METHOD_NAME" value="testGetAll" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -176,11 +180,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserServiceImplTest.getUsers" />
-        <item itemvalue="JUnit.UserServiceTest.saveUser_savesUserCorrectly" />
-        <item itemvalue="JUnit.UserServiceImplTest.saveUser" />
-        <item itemvalue="JUnit.UserServiceImplTest" />
-        <item itemvalue="JUnit.UserControllerTest" />
+        <item itemvalue="JUnit.UserRepositoryImplTest" />
+        <item itemvalue="JUnit.UserRepositoryTest" />
+        <item itemvalue="JUnit.UserRepositoryTest.testGetAll" />
+        <item itemvalue="JUnit.UserRepositoryTest.getAll" />
+        <item itemvalue="JUnit.UserRepositoryTest.setUsers" />
       </list>
     </recent_temporary>
   </component>
@@ -201,7 +205,7 @@
       <updated>1717746886611</updated>
       <workItem from="1717746887647" duration="11953000" />
       <workItem from="1718086534763" duration="17757000" />
-      <workItem from="1720024207810" duration="26944000" />
+      <workItem from="1720024207810" duration="41895000" />
     </task>
     <task id="LOCAL-00001" summary="init: rewrite learn material">
       <option name="closed" value="true" />
@@ -291,7 +295,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720043339198</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="feat: add svc.getUsersTest">
+      <option name="closed" value="true" />
+      <created>1720128027345</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1720128027345</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -309,6 +321,7 @@
     <MESSAGE value="feat: add upd&amp;del items" />
     <MESSAGE value="fix: fix basic tests" />
     <MESSAGE value="fix: buggfix" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: buggfix" />
+    <MESSAGE value="feat: add svc.getUsersTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add svc.getUsersTest" />
   </component>
 </project>

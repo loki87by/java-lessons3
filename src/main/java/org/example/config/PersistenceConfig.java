@@ -35,6 +35,24 @@ public class PersistenceConfig {
         return dataSource;
     }
 
+    @Bean
+    @Profile("test")
+    public DataSource testDataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("org.h2.Driver");
+        dataSource.setUrl("jdbc:h2:file:./db/jl3");
+        dataSource.setUsername("sa");
+        dataSource.setPassword("password");
+        return dataSource;
+    }
+
+    @Bean
+    @Primary
+    @Profile("test")
+    public EntityManager testEntityManager(EntityManagerFactory entityManagerFactory) {
+        return entityManagerFactory.createEntityManager();
+    }
+
     private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));

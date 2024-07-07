@@ -22,13 +22,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Transactional
-    //@Override
     public User save(User user) {
         final User savedUser;
 
         if (user.getId() == null) {
             savedUser = userJPARepository.saveAndFlush(user);
-            System.out.println("User saved: " + savedUser);
         } else {
             savedUser = entityManager.merge(user);
         }
@@ -36,7 +34,6 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Transactional
-    //@Override
     public List<User> findAll() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> cr = cb.createQuery(User.class);
