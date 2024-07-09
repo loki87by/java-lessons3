@@ -91,18 +91,6 @@ public class ItemServiceImpl {
 
     @Transactional
     public Item save(Item item) {
-
-        /*if (item.getId() != null && itemJPARepository.existsById(item.getId())) {
-            Item existingItem = itemJPARepository.findById(item.getId()).orElse(null);
-
-            if (existingItem != null) {
-                UrlMetadataRetriever.UrlMetadata meta = urlMetadataRetriever.retrieve(item.getUrl());
-                Item updatedItem = new ItemMapper().addMetadata(existingItem, meta); // Обновление полей существующего объекта
-                return itemJPARepository.saveAndFlush(updatedItem);
-            } else {
-                throw new RuntimeException("Item with id " + item.getId() + " not found");
-            }
-        } else {*/
             UrlMetadataRetriever.UrlMetadata meta = urlMetadataRetriever.retrieve(item.getUrl());
             String resUrl = meta.getResolvedUrl();
             boolean hasDuplicates = itemJPARepository.countItemsByResolvedUrl(resUrl) > 0;
@@ -114,7 +102,6 @@ public class ItemServiceImpl {
             }
             Item updItem = new ItemMapper().addMetadata(item, meta);
             return itemJPARepository.saveAndFlush(updItem);
-        //}
     }
 
     private Set<String> updateTags(Long itemId, Set<String> tags, boolean isReplaceTags) {
@@ -139,11 +126,13 @@ public class ItemServiceImpl {
             throw new IllegalArgumentException();
         }
         Set<String> newTags = updateTags(req.getItemId(), req.getTags(), req.isReplaceTags());
-        String url = item.getUrl();
+        //String url = item.getUrl();
 
         final Item updatedItem;
-        if(req.getUrl() != null && !req.getUrl().equals(url)) {
-            item.setUrl(url);
+        if(req.getUrl() != null && !req.getUrl().equals(item.getUrl())) {
+        //if(req.getUrl() != null && !req.getUrl().equals(url)) {
+            //item.setUrl(url);
+            item.setUrl(req.getUrl());
             updatedItem = save(item);
         } else {
             updatedItem = item;

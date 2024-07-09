@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="feat: add svc.getUsersTest">
-      <change afterPath="$PROJECT_DIR$/src/test/java/user/UserRepositoryImplTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/user/UserRepositoryTest.java" afterDir="false" />
+    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="docs: add readme">
+      <change afterPath="$PROJECT_DIR$/src/test/java/Item/ItemControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/PersistenceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/PersistenceConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/TestConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/TestConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/user/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/user/UserRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +44,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.LaterApplication.executor": "Run",
+    "JUnit.ItemControllerTest.testGetItems.executor": "Run",
+    "JUnit.ItemControllerTest.testSetItem.executor": "Run",
+    "JUnit.ItemControllerTest.updItemTest.executor": "Run",
     "JUnit.UserControllerTest.executor": "Run",
     "JUnit.UserControllerTestWithContext.executor": "Run",
     "JUnit.UserRepositoryImplTest.executor": "Run",
@@ -66,7 +66,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Akuluch/Desktop/personal/develope/java-lessons3/src/test",
+    "last_opened_file_path": "C:/Users/Akuluch/Desktop/personal/develope/java-lessons3",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -89,6 +89,7 @@
       <recent name="C:\Users\Akuluch\Desktop\personal\develope\java-lessons3\src\test" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Item" />
       <recent name="user" />
       <recent name="org.example.item" />
       <recent name="org.example.user" />
@@ -99,80 +100,81 @@
       <command value="mvn clean compile" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserRepositoryImplTest">
-    <configuration name="UserRepositoryImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ItemControllerTest">
+    <configuration name="ItemControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-lessons3" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="user.*" />
+          <option name="PATTERN" value="Item.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="user" />
-      <option name="MAIN_CLASS_NAME" value="user.UserRepositoryImplTest" />
+      <option name="PACKAGE_NAME" value="Item" />
+      <option name="MAIN_CLASS_NAME" value="Item.ItemControllerTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ItemControllerTest.testDeleteItem" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-lessons3" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="user.*" />
+          <option name="PATTERN" value="Item.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="user" />
-      <option name="MAIN_CLASS_NAME" value="user.UserRepositoryTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserRepositoryTest.getAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="java-lessons3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="user.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="user" />
-      <option name="MAIN_CLASS_NAME" value="user.UserRepositoryTest" />
-      <option name="METHOD_NAME" value="getAll" />
+      <option name="PACKAGE_NAME" value="Item" />
+      <option name="MAIN_CLASS_NAME" value="Item.ItemControllerTest" />
+      <option name="METHOD_NAME" value="testDeleteItem" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserRepositoryTest.setUsers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ItemControllerTest.testGetItems" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-lessons3" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="user.*" />
+          <option name="PATTERN" value="Item.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="user" />
-      <option name="MAIN_CLASS_NAME" value="user.UserRepositoryTest" />
-      <option name="METHOD_NAME" value="setUsers" />
+      <option name="PACKAGE_NAME" value="Item" />
+      <option name="MAIN_CLASS_NAME" value="Item.ItemControllerTest" />
+      <option name="METHOD_NAME" value="testGetItems" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserRepositoryTest.testGetAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ItemControllerTest.testSetItem" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-lessons3" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="user.*" />
+          <option name="PATTERN" value="Item.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="user" />
-      <option name="MAIN_CLASS_NAME" value="user.UserRepositoryTest" />
-      <option name="METHOD_NAME" value="testGetAll" />
+      <option name="PACKAGE_NAME" value="Item" />
+      <option name="MAIN_CLASS_NAME" value="Item.ItemControllerTest" />
+      <option name="METHOD_NAME" value="testSetItem" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ItemControllerTest.updItemTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-lessons3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Item.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Item" />
+      <option name="MAIN_CLASS_NAME" value="Item.ItemControllerTest" />
+      <option name="METHOD_NAME" value="updItemTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -180,11 +182,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserRepositoryImplTest" />
-        <item itemvalue="JUnit.UserRepositoryTest" />
-        <item itemvalue="JUnit.UserRepositoryTest.testGetAll" />
-        <item itemvalue="JUnit.UserRepositoryTest.getAll" />
-        <item itemvalue="JUnit.UserRepositoryTest.setUsers" />
+        <item itemvalue="JUnit.ItemControllerTest" />
+        <item itemvalue="JUnit.ItemControllerTest.updItemTest" />
+        <item itemvalue="JUnit.ItemControllerTest.testDeleteItem" />
+        <item itemvalue="JUnit.ItemControllerTest.testSetItem" />
+        <item itemvalue="JUnit.ItemControllerTest.testGetItems" />
       </list>
     </recent_temporary>
   </component>
@@ -205,7 +207,9 @@
       <updated>1717746886611</updated>
       <workItem from="1717746887647" duration="11953000" />
       <workItem from="1718086534763" duration="17757000" />
-      <workItem from="1720024207810" duration="41895000" />
+      <workItem from="1720024207810" duration="42121000" />
+      <workItem from="1720425526468" duration="64000" />
+      <workItem from="1720447977070" duration="8076000" />
     </task>
     <task id="LOCAL-00001" summary="init: rewrite learn material">
       <option name="closed" value="true" />
@@ -303,7 +307,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720128027345</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="docs: add readme">
+      <option name="closed" value="true" />
+      <created>1720343148625</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1720343148625</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,6 +334,7 @@
     <MESSAGE value="fix: fix basic tests" />
     <MESSAGE value="fix: buggfix" />
     <MESSAGE value="feat: add svc.getUsersTest" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add svc.getUsersTest" />
+    <MESSAGE value="docs: add readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="docs: add readme" />
   </component>
 </project>
