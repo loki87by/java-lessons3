@@ -10,16 +10,13 @@ import java.util.*;
 
 @Service
 public class ItemServiceImpl {
-
-    //private final ItemMapper itemMapper;
     private final UrlMetadataRetriever urlMetadataRetriever;
     private final ItemJPARepository itemJPARepository;
 
     @Autowired
-    public ItemServiceImpl(/*ItemMapper itemMapper,*/
+    public ItemServiceImpl(
                            ItemJPARepository itemJPARepository,
                            @Qualifier("urlMetadataRetrieverImpl") UrlMetadataRetriever urlMetadataRetriever) {
-        //this.itemMapper = itemMapper;
         this.urlMetadataRetriever = urlMetadataRetriever;
         this.itemJPARepository = itemJPARepository;
     }
@@ -70,7 +67,6 @@ public class ItemServiceImpl {
         }
         items.forEach(item -> Hibernate.initialize(item.getTags()));
 
-        //System.out.println("\u001B[38;5;44m" + "items: "+items+ "\u001B[0m");
         List<ItemDTO> result = new ArrayList<>();
         int minSize = Math.min(items.size(), req.getLimit());
         for (int i = 0; i < minSize; i++) {
@@ -120,7 +116,9 @@ public class ItemServiceImpl {
 
     @Transactional
     public Item update(ModifyItemRequest req) {
+        System.out.println("req: "+req);
         Item item = getItemByIds(req.getUserId(), req.getItemId());
+        System.out.println("item: "+item);
 
         if (item == null) {
             throw new IllegalArgumentException();

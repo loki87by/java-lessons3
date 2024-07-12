@@ -13,7 +13,7 @@ public class ItemMapper {
     }*/
     public Item addMetadata (Item item, UrlMetadataRetriever.UrlMetadata meta) {
         item.setHasImage(meta.isHasImage());
-        item.setUrl(meta.getNormalUrl());
+        //item.setUrl(meta.getNormalUrl());
         item.setDateResolved(meta.getDateResolved());
         item.setHasVideo(meta.isHasVideo());
         item.setMimeType(meta.getMimeType());
@@ -22,7 +22,7 @@ public class ItemMapper {
         return item;
     }
 
-    public ItemDTO toObj (Item item) {
+    /*public ItemDTO toObj (Item item) {
         ItemDTO dto = new ItemDTO();
         dto.setId(item.getId());
         dto.setUrl(item.getUrl());
@@ -35,5 +35,5 @@ public class ItemMapper {
         dto.setDateResolved(item.getDateResolved());
         dto.setUnread(item.isUnread());
         return dto;
-    }
+    }*/
 }

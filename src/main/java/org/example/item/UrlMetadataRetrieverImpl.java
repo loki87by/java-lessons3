@@ -84,6 +84,7 @@ public class UrlMetadataRetrieverImpl implements UrlMetadataRetriever{
 
     @Override
     public UrlMetadata retrieve(String url) {
+        System.out.println("url: "+url);
         final URI uri;
         try {
             uri = new URI(url);

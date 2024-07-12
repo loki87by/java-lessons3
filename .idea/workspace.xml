@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="docs: add readme">
-      <change afterPath="$PROJECT_DIR$/src/test/java/Item/ItemControllerTest.java" afterDir="false" />
+    <list default="true" id="fabf44c6-0dd1-49db-9a04-488813f51e31" name="Changes" comment="feat: add 3 tests to item controller">
+      <change afterPath="$PROJECT_DIR$/src/test/java/Item/ItemServiceImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/jl3.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/jl3.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/ItemServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/ItemServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/item/UrlMetadataRetrieverImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/item/UrlMetadataRetrieverImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,49 +45,55 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.LaterApplication.executor": "Run",
-    "JUnit.ItemControllerTest.testGetItems.executor": "Run",
-    "JUnit.ItemControllerTest.testSetItem.executor": "Run",
-    "JUnit.ItemControllerTest.updItemTest.executor": "Run",
-    "JUnit.UserControllerTest.executor": "Run",
-    "JUnit.UserControllerTestWithContext.executor": "Run",
-    "JUnit.UserRepositoryImplTest.executor": "Run",
-    "JUnit.UserRepositoryTest.executor": "Run",
-    "JUnit.UserRepositoryTest.getAll.executor": "Run",
-    "JUnit.UserRepositoryTest.getUsers.executor": "Run",
-    "JUnit.UserRepositoryTest.setUsers.executor": "Run",
-    "JUnit.UserRepositoryTest.testGetAll.executor": "Run",
-    "JUnit.UserServiceImplTest.executor": "Run",
-    "JUnit.UserServiceImplTest.getUsers.executor": "Run",
-    "JUnit.UserServiceImplTest.saveUser.executor": "Run",
-    "JUnit.UserServiceImplTestWithBard.executor": "Run",
-    "JUnit.UserServiceTest.saveUser_savesUserCorrectly.executor": "Run",
-    "Maven.java-lessons3 [clean,compile].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Akuluch/Desktop/personal/develope/java-lessons3",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.LaterApplication.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ItemControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ItemControllerTest.testDeleteItem.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ItemControllerTest.testGetItems.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ItemControllerTest.testSetItem.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ItemControllerTest.updItemTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ItemServiceImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ItemServiceImplTest.findByUserId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ItemServiceImplTest.saveTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ItemServiceImplTest.updateTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserControllerTestWithContext.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserRepositoryImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserRepositoryTest.getAll.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserRepositoryTest.getUsers.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserRepositoryTest.setUsers.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserRepositoryTest.testGetAll.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceImplTest.getUsers.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceImplTest.saveUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceImplTestWithBard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.saveUser_savesUserCorrectly.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.java-lessons3 [clean,compile].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Akuluch/Desktop/personal/develope/java-lessons3&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "h2"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;h2&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
-      "H2"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
+      &quot;H2&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Akuluch\Desktop\personal\develope\java-lessons3\src\test" />
@@ -100,7 +110,7 @@
       <command value="mvn clean compile" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ItemControllerTest">
+  <component name="RunManager" selected="JUnit.ItemServiceImplTest.updateTest">
     <configuration name="ItemControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-lessons3" />
       <extension name="coverage">
@@ -116,7 +126,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ItemControllerTest.testDeleteItem" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ItemServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-lessons3" />
       <extension name="coverage">
         <pattern>
@@ -125,14 +135,29 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="Item" />
-      <option name="MAIN_CLASS_NAME" value="Item.ItemControllerTest" />
-      <option name="METHOD_NAME" value="testDeleteItem" />
+      <option name="MAIN_CLASS_NAME" value="Item.ItemServiceImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ItemServiceImplTest.findByUserId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-lessons3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Item.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Item" />
+      <option name="MAIN_CLASS_NAME" value="Item.ItemServiceImplTest" />
+      <option name="METHOD_NAME" value="findByUserId" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ItemControllerTest.testGetItems" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ItemServiceImplTest.saveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-lessons3" />
       <extension name="coverage">
         <pattern>
@@ -141,14 +166,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="Item" />
-      <option name="MAIN_CLASS_NAME" value="Item.ItemControllerTest" />
-      <option name="METHOD_NAME" value="testGetItems" />
+      <option name="MAIN_CLASS_NAME" value="Item.ItemServiceImplTest" />
+      <option name="METHOD_NAME" value="saveTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ItemControllerTest.testSetItem" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ItemServiceImplTest.updateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-lessons3" />
       <extension name="coverage">
         <pattern>
@@ -157,24 +182,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="Item" />
-      <option name="MAIN_CLASS_NAME" value="Item.ItemControllerTest" />
-      <option name="METHOD_NAME" value="testSetItem" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ItemControllerTest.updItemTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="java-lessons3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Item.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Item" />
-      <option name="MAIN_CLASS_NAME" value="Item.ItemControllerTest" />
-      <option name="METHOD_NAME" value="updItemTest" />
+      <option name="MAIN_CLASS_NAME" value="Item.ItemServiceImplTest" />
+      <option name="METHOD_NAME" value="updateTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -182,11 +191,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ItemServiceImplTest.updateTest" />
+        <item itemvalue="JUnit.ItemServiceImplTest.saveTest" />
+        <item itemvalue="JUnit.ItemServiceImplTest" />
+        <item itemvalue="JUnit.ItemServiceImplTest.findByUserId" />
         <item itemvalue="JUnit.ItemControllerTest" />
-        <item itemvalue="JUnit.ItemControllerTest.updItemTest" />
-        <item itemvalue="JUnit.ItemControllerTest.testDeleteItem" />
-        <item itemvalue="JUnit.ItemControllerTest.testSetItem" />
-        <item itemvalue="JUnit.ItemControllerTest.testGetItems" />
       </list>
     </recent_temporary>
   </component>
@@ -209,7 +218,9 @@
       <workItem from="1718086534763" duration="17757000" />
       <workItem from="1720024207810" duration="42121000" />
       <workItem from="1720425526468" duration="64000" />
-      <workItem from="1720447977070" duration="8076000" />
+      <workItem from="1720447977070" duration="15183000" />
+      <workItem from="1720592719480" duration="16996000" />
+      <workItem from="1720765329054" duration="602000" />
     </task>
     <task id="LOCAL-00001" summary="init: rewrite learn material">
       <option name="closed" value="true" />
@@ -315,7 +326,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720343148625</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="feat: add 3 tests to item controller">
+      <option name="closed" value="true" />
+      <created>1720522994334</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1720522994334</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,6 +354,7 @@
     <MESSAGE value="fix: buggfix" />
     <MESSAGE value="feat: add svc.getUsersTest" />
     <MESSAGE value="docs: add readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="docs: add readme" />
+    <MESSAGE value="feat: add 3 tests to item controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add 3 tests to item controller" />
   </component>
 </project>

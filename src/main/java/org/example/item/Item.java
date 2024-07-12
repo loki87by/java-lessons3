@@ -39,7 +39,6 @@ public class Item {
     boolean unread = true;
 
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,12 +46,11 @@ public class Item {
         Item item = (Item) o;
         return Objects.equals(id, item.id) &&
                 Objects.equals(userId, item.userId) &&
-                Objects.equals(url, item.url)/* &&
-                Objects.equals(tags, item.tags)*/;
+                Objects.equals(url, item.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, url/*, tags*/);
+        return Objects.hash(id, userId, url);
     }
 }
